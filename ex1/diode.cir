@@ -3,7 +3,7 @@
 *Include diode model
 .include ../ciceda/models/ptm_diode_130.spi
 
-.option TNOM=27
+.option TNOM=27 GMIN=1e-20
 
 VDD VDD 0 dc 5
 D1 0 VDD np_sub
