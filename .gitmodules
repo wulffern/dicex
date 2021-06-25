@@ -1,0 +1,3 @@
+[submodule "ciceda"]
+	path = ciceda
+	url = git@github.com:wulffern/ciceda.git
