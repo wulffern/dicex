@@ -24,8 +24,35 @@ eng = {
     -15 : [1e15,"f"]
 }
 
+
+def plot(xname,yname,ptype):
+    f = plt.figure()
+    df = pd.read_csv(fname,header=4 )
+    x = df[xname]
+    y = df[yname]
+
+    #- Resize y to m,u,p,
+    ymax = np.floor(np.log10(y.max()))
+    scale = 1
+    unit = ""
+    if(ymax in eng):
+        scale = eng[ymax][0]
+        unit  = eng[ymax][1]
+    y = y*scale
+
+    #- Plot
+    if(ptype == "logy"):
+        plt.semilogy(x,y)
+    else:
+        plt.plot(x,y)
+
+    plt.xlabel(xname)
+    plt.ylabel(yname + f"[{unit}]")
+    plt.grid()
+
+
 if(len(sys.argv) < 4):
-    print("Usage python3 plot.py <file.csv> <x-name> <y-name> ")
+    print("Usage python3 plot.py <file.csv> <x-name> <y-name,[y-name]> ")
 
 ptype = None
 if(len(sys.argv) > 4):
@@ -35,27 +62,10 @@ fname = sys.argv[1]
 xname = sys.argv[2]
 yname = sys.argv[3]
 
-df = pd.read_csv(fname,header=4 )
-
-x = df[xname]
-y = df[yname]
-
-#- Resize y to m,u,p,
-ymax = np.floor(np.log10(y.max()))
-scale = 1
-unit = ""
-if(ymax in eng):
-    scale = eng[ymax][0]
-    unit  = eng[ymax][1]
-y = y*scale
-
-#- Plot
-if(ptype == "logy"):
-    plt.semilogy(x,y)
+if("," in yname):
+    names = yname.split(",")
+    for n in names:
+        plot(xname,n,ptype)
 else:
-    plt.plot(x,y)
-
-plt.xlabel(xname)
-plt.ylabel(yname + f"[{unit}]")
-plt.grid()
+    plot(xname,yname,ptype)
 plt.show()
