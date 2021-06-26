@@ -42,7 +42,7 @@ y = df[yname]
 
 #- Resize y to m,u,p,
 ymax = np.floor(np.log10(y.max()))
-scale = 0
+scale = 1
 unit = ""
 if(ymax in eng):
     scale = eng[ymax][0]

@@ -1,0 +1,7 @@
+
+
+.MODEL pn_sub D LEVEL=1
++ IS=1e-19  ISR     =2.0E-12         IBV = 0
++ CJO    =9.300e-04 M      =5.00e-01         VJ =8.9e-1 TT     =0.000e+00
++ FC     =0.500e+00
++ EG     =1.110e+00 XTI    =3
