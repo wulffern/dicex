@@ -1,6 +1,6 @@
 * Problem 3 - Diode simulation
 
-.include ../ciceda/models/ptm_diode_130.spi
+.include ../models/ptm_diode_130.spi
 
 .option TNOM=27 GMIN=1e-20
 

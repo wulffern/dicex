@@ -1,13 +1,13 @@
 * Problem 3 - Diode simulation
 
 *Include diode model
-.include ../ciceda/models/ptm_diode_130.spi
+.include ../models/ptm_diode_130.spi
 
 .option TNOM=27 GMIN=1e-20
 
 V1 VDD 0 dc 5
 V2 VSS 0 dc 0
-D1 VSS VDD pn_sub 4
+D1 VSS VDD pn_sub
 
 .dc V1 0 5 0.01
 

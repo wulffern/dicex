@@ -1,9 +1,9 @@
 .SUBCKT PCHIO D G S B
-M1 D G S B pmos  w=1.08u  l=0.6u  nf=1
+M1 D G S B pmos  w=1.08u  l=0.6u
 .ENDS
 
 .SUBCKT NCHIO D G S B
-M1 D G S B nmos  w=1.08u  l=0.6u  nf=1
+M1 D G S B nmos  w=1.08u  l=0.6u
 .ENDS
 
 .SUBCKT NCHIOCM D G S B
@@ -41,7 +41,7 @@ XM1 S G D B PCHIOCM
 .ENDS
 
 .SUBCKT PCHIO_4C D G S B
-M1 D G S B pmos  w=2.52u  l=0.6u  nf=1
+M1 D G S B pmos  w=2.52u  l=0.6u
 .ENDS
 
 .SUBCKT PCHIOA_4C D G S B
@@ -62,7 +62,7 @@ XM1 S G D B PCHIOCM_4C
 .ENDS
 
 .SUBCKT PCHIO_6C D G S B
-M1 D G S B pmos  w=3.96u  l=0.6u  nf=1
+M1 D G S B pmos  w=3.96u  l=0.6u
 .ENDS
 
 .SUBCKT PCHIOA_6C D G S B
@@ -83,7 +83,7 @@ XM1 S G D B PCHIOCM_6C
 .ENDS
 
 .SUBCKT PCHIO_10C D G S B
-M1 D G S B pmos  w=6.84u  l=0.6u  nf=1
+M1 D G S B pmos  w=6.84u  l=0.6u
 .ENDS
 
 .SUBCKT PCHIOA_10C D G S B
@@ -104,7 +104,7 @@ XM1 S G D B PCHIOCM_10C
 .ENDS
 
 .SUBCKT PCHIO_12C D G S B
-M1 D G S B pmos  w=8.28u  l=0.6u  nf=1
+M1 D G S B pmos  w=8.28u  l=0.6u
 .ENDS
 
 .SUBCKT PCHIOA_12C D G S B
@@ -125,7 +125,7 @@ XM1 S G D B PCHIOCM_12C
 .ENDS
 
 .SUBCKT NCHIO_4C D G S B
-M1 D G S B nmos  w=2.52u  l=0.6u  nf=1
+M1 D G S B nmos  w=2.52u  l=0.6u
 .ENDS
 
 .SUBCKT NCHIOA_4C D G S B
@@ -146,7 +146,7 @@ XM1 S G D B NCHIOCM_4C
 .ENDS
 
 .SUBCKT NCHIO_6C D G S B
-M1 D G S B nmos  w=3.96u  l=0.6u  nf=1
+M1 D G S B nmos  w=3.96u  l=0.6u
 .ENDS
 
 .SUBCKT NCHIOA_6C D G S B
@@ -167,7 +167,7 @@ XM1 S G D B NCHIOCM_6C
 .ENDS
 
 .SUBCKT NCHIO_10C D G S B
-M1 D G S B nmos  w=6.84u  l=0.6u  nf=1
+M1 D G S B nmos  w=6.84u  l=0.6u
 .ENDS
 
 .SUBCKT NCHIOA_10C D G S B
@@ -188,7 +188,7 @@ XM1 S G D B NCHIOCM_10C
 .ENDS
 
 .SUBCKT NCHIO_12C D G S B
-M1 D G S B nmos  w=8.28u  l=0.6u  nf=1
+M1 D G S B nmos  w=8.28u  l=0.6u
 .ENDS
 
 .SUBCKT NCHIOA_12C D G S B
