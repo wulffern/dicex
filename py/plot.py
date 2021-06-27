@@ -6,48 +6,27 @@ import pandas as pd
 import sys
 import math
 
-eng = {
-    -1 : [1e3,"m"],
-    -2 : [1e3,"m"],
-    -3 : [1e3,"m"],
-    -4 : [1e6,"u"],
-    -5 : [1e6,"u"],
-    -6 : [1e6,"u"],
-    -7 : [1e9,"n"],
-    -8 : [1e9,"n"],
-    -9 : [1e9,"n"],
-    -10 : [1e12,"p"],
-    -11 : [1e12,"p"],
-    -12 : [1e12,"p"],
-    -13 : [1e15,"f"],
-    -14 : [1e15,"f"],
-    -15 : [1e15,"f"]
-}
-
 
 def plot(xname,yname,ptype):
-    f = plt.figure()
+
+    if(ptype != "same"):
+        f = plt.figure()
+
+
     df = pd.read_csv(fname,header=4 )
     x = df[xname]
     y = df[yname]
 
-    #- Resize y to m,u,p,
-    ymax = np.floor(np.log10(y.max()))
-    scale = 1
-    unit = ""
-    if(ymax in eng):
-        scale = eng[ymax][0]
-        unit  = eng[ymax][1]
-    y = y*scale
-
     #- Plot
     if(ptype == "logy"):
-        plt.semilogy(x,y)
+        plt.semilogy(x,y,label=yname)
     else:
-        plt.plot(x,y)
+        plt.plot(x,y,label=yname)
 
+    plt.legend()
     plt.xlabel(xname)
-    plt.ylabel(yname + f"[{unit}]")
+    if(ptype != "same"):
+        plt.ylabel(yname)
     plt.grid()
 
 

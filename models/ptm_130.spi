@@ -3,7 +3,7 @@
 * PTM 130nm NMOS
 
 .model  nmos  nmos  level = 25
-+version = 4.3          binunit = 1            paramchk= 1            mobmod  = 0
++version = 4.3.0          binunit = 1            paramchk= 1            mobmod  = 0
 +capmod  = 2            igcmod  = 1            igbmod  = 1            geomod  = 1
 +diomod  = 1            rdsmod  = 0            rbodymod= 1            rgatemod= 1
 +permod  = 1            acnqsmod= 0            trnqsmod= 0

@@ -1,0 +1,68 @@
+* Current mirrors
+
+*----------------------------------------------------------------
+* Include
+*----------------------------------------------------------------
+.include ../models/ptm_130.spi
+.include ../lib/SUN_TRIO_GF130N.spi
+
+*----------------------------------------------------------------
+* Options
+*----------------------------------------------------------------
+.option TNOM=27 GMIN=1e-20
+
+*----------------------------------------------------------------
+* Sources
+*----------------------------------------------------------------
+V1 VDD 0 dc  1.5
+V2 VD 0 dc 0.6 ac 1
+V3 VSS 0 dc 0
+
+*----------------------------------------------------------------
+* DUTs
+*----------------------------------------------------------------
+.SUBCKT STANDARD VDD VSS VD VG
+R1 VDD VG 20k
+XN1 VG VG VSS VSS NCHIO
+XN2 VD VG VSS VSS NCHIO
+.ENDS
+X1 VDD VSS VD1 VG1 STANDARD
+VD1 VD VD1 dc 0
+
+.SUBCKT SCASCODE VDD VSS VD VG VS1 VS2
+R2 VDD VG 20k
+XN3 VG VG VS1 VSS NCHIOA
+XN4 VS1 VG VSS VSS NCHIO
+XN5 VD VG VS2 VSS NCHIOA
+XN6 VS2 VG VSS VSS NCHIO
+.ENDS
+X2 VDD VSS VD2 VG2 VS1 VS2 SCASCODE
+VD2 VD VD2 dc 0
+
+.SUBCKT LCASCODE VDD VSS VD VG1 VG2 VS1 VS2
+R1 VDD VG2 15k
+R2 VG2 VG1 5k
+
+XN1 VS1 VG1 VSS VSS NCHIO
+XN2 VS2 VG1 VSS VSS NCHIO
+
+XN3 VG1 VG2 VS1 VSS NCHIOA
+XN4 VD VG2 VS2 VSS NCHIOA
+.ENDS
+
+X3 VDD VSS VD3 VG3 VG4 VS3 VS4 LCASCODE
+VD3 VD VD3 dc 0
+
+*----------------------------------------------------------------
+* Analysis
+*----------------------------------------------------------------
+.dc V2 0 1.5 0.01
+.plot dc v(vg1) v(vg2) v(vg3) v(vg4) i(vd1) i(vd2) i(vd3) v(vs1) v(vs2) v(vs3) v(vs4)
+
+#com
+.ac dec 50 1k 10k
+.defwave ac ro1=v(vd)/i(vd1)
+.defwave ac ro2=v(vd)/i(vd2)
+.defwave ac ro3=v(vd)/i(vd3)
+.plot ac vm(ro1) vm(ro2) vm(ro3)
+#endcom
