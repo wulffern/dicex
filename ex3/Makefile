@@ -2,6 +2,27 @@
 
 plt=python3 ../py/plot.py
 
+cs:
+	${MAKE} aim TB=cs
+
+cs_bias:
+	${MAKE} aim TB=cs_bias
+
+csbvx:
+	${plt} cs_bias.csv Frequency "vm(vx)" db20
+
+csdvx:
+	${plt} cs.csv v2 "v(vx)"
+
+csvx:
+	${plt} cs.csv Frequency "vm(vx)" db20
+
+sf:
+	${MAKE} aim TB=sf
+
+sfvx:
+	${plt} sf.csv Frequency "vm(vx)" db20
+
 cm:
 	${MAKE} aim TB=cm
 

@@ -7,25 +7,27 @@ import sys
 import math
 
 
-def plot(xname,yname,ptype):
+def plot(xname,yname,ptype=None):
 
     if(ptype != "same"):
         f = plt.figure()
-
 
     df = pd.read_csv(fname,header=4 )
     x = df[xname]
     y = df[yname]
 
+    print(y)
     #- Plot
     if(ptype == "logy"):
         plt.semilogy(x,y,label=yname)
+    elif(ptype == "db20"):
+        plt.semilogx(x,20*np.log10(y),label="dB20(" + yname + ")")
     else:
         plt.plot(x,y,label=yname)
 
     plt.legend()
     plt.xlabel(xname)
-    if(ptype != "same"):
+    if(ptype == None):
         plt.ylabel(yname)
     plt.grid()
 
