@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=GTKWave
+Comment=Display simulation results
+Exec=gtkwave %F
+Icon=gtkwave
+Path=/headless/eda/sim/verilog
+Terminal=false
+StartupNotify=true

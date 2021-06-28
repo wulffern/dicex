@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=terminal
+Comment=Configure Xfce Terminal
+Exec=xfce4-terminal
+Icon=utilities-terminal
+Path=/headless
+Terminal=false
+StartupNotify=true
