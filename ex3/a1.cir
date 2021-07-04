@@ -26,10 +26,12 @@ XN1 VD VD VSS VSS NCHIOCM
 XN2 VX VD VSS VSS NCHIOCM
 XN3 VDD VG VX VX NCHIOA_12C
 
+CL VX VSS 100f
+
 *----------------------------------------------------------------
 * Analysis
 *----------------------------------------------------------------
-.op
+*.op
 
 .ac dec 50 1k 1G
 .plot ac vm(vx)
