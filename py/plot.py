@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import sys
 import math
+import tikzplotlib
 
 
 def plot(xname,yname,ptype=None):
@@ -16,7 +17,7 @@ def plot(xname,yname,ptype=None):
     x = df[xname]
     y = df[yname]
 
-    print(y)
+    #print(y)
     #- Plot
     if(ptype == "logy"):
         plt.semilogy(x,y,label=yname)
@@ -49,4 +50,6 @@ if("," in yname):
         plot(xname,n,ptype)
 else:
     plot(xname,yname,ptype)
+
+tikzplotlib.save(fname.replace(".csv",".pgf"))
 plt.show()

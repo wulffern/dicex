@@ -2,26 +2,30 @@
 
 plt=python3 ../py/plot.py
 
-cs:
-	${MAKE} aim TB=cs
+a2:
+	${MAKE} aim TB=a2
 
-cs_bias:
-	${MAKE} aim TB=cs_bias
+a2vg:
+	cat a2.csv|grep ",1.5"
 
-csbvx:
-	${plt} cs_bias.csv Frequency "vm(vx)" db20
+a2dvx:
+	${plt} a2.csv v2 "v(vx)"
 
-csdvx:
-	${plt} cs.csv v2 "v(vx)"
+a2vx:
+	${plt} a2.csv Frequency "vm(vx)" db20
 
-csvx:
-	${plt} cs.csv Frequency "vm(vx)" db20
+a2_bias:
+	${MAKE} aim TB=a2_bias
 
-sf:
-	${MAKE} aim TB=sf
+a2bvx:
+	${plt} a2_bias.csv Frequency "vm(vx)" db20
 
-sfvx:
-	${plt} sf.csv Frequency "vm(vx)" db20
+a1:
+	${MAKE} aim TB=a1
+
+a1vx:
+	${plt} a1.csv Frequency "vm(vx)" db20
+
 
 cm:
 	${MAKE} aim TB=cm
@@ -44,3 +48,8 @@ aim:
 	-rm ${TB}.csv
 	aimspice ${TB}.cir -o csv | tee ${TB}.sim
 	@cat ${TB}.sim | perl -ne "if(m/error/i){system('cat ${TB}.log'); exit 1;}"
+
+clean:
+	-rm *.csv
+	-rm *.log
+	-rm *.sim

@@ -15,38 +15,45 @@
 * Sources
 *----------------------------------------------------------------
 V1 VDD 0 dc  3.0
+V0 VDD_BIAS 0 dc  3.0
 V2 VG 0 dc 0 ac 1
 V3 VSS 0 dc 0
 
 *----------------------------------------------------------------
 * DUTs
 *----------------------------------------------------------------
-I1 VDD VD dc 20u
+R1 VDD_BIAS VD 320k
+XMN1 VD VD VSS VSS NCHIOA
 
-XN1 VD VD VSS VSS NCHIOA
 
-XN3 VX1 VD VSS VSS NCHIOA
-XP3 VX1 VO VDD VDD PCHIOA_12C
-
+XMN2 VS VD VSS VSS NCHIOA
 R2 VDD VR 100k
 R3 VR VSS 100k
-
-XN4 VS VD VSS VSS NCHIOA
 XM1 VO VR VS VSS NCHIOA_6C
-XM2 VM1 VX1 VS VSS NCHIOA_6C
-C2 VX1 VDD 1p
+XM2 V2 VX1 VS VSS NCHIOA_6C
+C1 VX1 VSS 1p
 R4 VO VDD 100k
-R5 VM1 VDD 100k
+XMPD1 V2 V2 VDD VDD PCHIOA_12C
 
-R1 VO VG1 500k
-C1 VG VG1 10p
-XN2 VX VD VSS VSS NCHIOA
-XP4 VX VG1 VDD VDD PCHIOA_12C
+XMN3 VX1 VD VSS VSS NCHIOA
+XMP3 VX1 VO VDD VDD PCHIOA_12C
+
+R0 VO VG1 500k
+C0 VG VG1 10p
+XMN4a VX VD VSS VSS NCHIOA
+XMN4b VX VD VSS VSS NCHIOA
+XMN4c VX VD VSS VSS NCHIOA
+XMN4d VX VD VSS VSS NCHIOA
+XMP4a VX VG1 VDD VDD PCHIOA_12C
+XMP4b VX VG1 VDD VDD PCHIOA_12C
+XMP4c VX VG1 VDD VDD PCHIOA_12C
+XMP4d VX VG1 VDD VDD PCHIOA_12C
 
 *----------------------------------------------------------------
 * Analysis
 *----------------------------------------------------------------
 *.op
+
 
 *#com
 .ac dec 50 1k 1G

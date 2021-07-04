@@ -40,8 +40,8 @@ X2 VDD VSS VD2 VG2 VS1 VS2 SCASCODE
 VD2 VD VD2 dc 0
 
 .SUBCKT LCASCODE VDD VSS VD VG1 VG2 VS1 VS2
-R1 VDD VG2 15k
-R2 VG2 VG1 5k
+R1 VDD VG2 16k
+R2 VG2 VG1 4k
 
 XN1 VS1 VG1 VSS VSS NCHIO
 XN2 VS2 VG1 VSS VSS NCHIO
@@ -56,9 +56,10 @@ VD3 VD VD3 dc 0
 *----------------------------------------------------------------
 * Analysis
 *----------------------------------------------------------------
+*#com
 .dc V2 0 1.5 0.01
 .plot dc v(vg1) v(vg2) v(vg3) v(vg4) i(vd1) i(vd2) i(vd3) v(vs1) v(vs2) v(vs3) v(vs4)
-
+*#endcom
 #com
 .ac dec 50 1k 10k
 .defwave ac ro1=v(vd)/i(vd1)

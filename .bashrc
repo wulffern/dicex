@@ -4,10 +4,10 @@ alias sc='source ~/.bashrc'
 alias xx='xterm -fg white -bg gray19 &'
 
 function set_ps(){
-local l_for="\[\033[0;32m\]";
+local l_for="\[\033[0;36m\]";
 local l_back="\[\033[0;00m\]";
 
-local PS_1="$l_for\u_doc@\W\\$ $l_back "
+local PS_1="$l_for\u@\W\\$ $l_back "
 PS1=$PS_1
 }
 
@@ -25,7 +25,8 @@ export PATH="/usr/local/opt/qt/bin:~/.emacs.d/bin:$PATH"
 
 #vncserver :0 -geometry 1280x960
 
-#export DISPLAY=host.docker.internal:0
+
+
 
 
 [ -e "$HOME/.dircolors" ] && DIR_COLORS="$HOME/.dircolors"

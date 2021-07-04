@@ -1,0 +1,13 @@
+* Problem 3 - Diode simulation
+
+.include ../models/ptm_diode_130.spi
+
+.option TNOM=27 GMIN=1e-20
+
+V1 VDD 0 dc 5
+R1 VDD VD 1
+V2 VSS 0 dc 0
+D1 VD VSS pn_sub
+
+.dc V1 0.01 5  0.01
+.plot v(vd) i(v2)

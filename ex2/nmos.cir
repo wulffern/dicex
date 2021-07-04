@@ -26,4 +26,5 @@ M1 VD VG VSS VSS nmos W=2u L=0.2u
 * Analysis
 *----------------------------------------------------------------
 .dc V2 0 1.5 0.01
-.plot v(vg) gm(m1) rds(m1) id(m1)
+.defwave a = gm(m1)*rds(m1)
+.plot v(vg) gm(m1) rds(m1) id(m1) v(a)
