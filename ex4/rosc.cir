@@ -13,7 +13,7 @@
 *----------------------------------------------------------------
 * Sources
 *----------------------------------------------------------------
-VDD VDD VSS dc 0.5
+VDD VDD VSS dc 1.5
 V1 PWRUP VSS pwl 0 0 1n 0 1.1n 1.5
 V3 VSS 0 dc 0
 
@@ -23,15 +23,15 @@ V3 VSS 0 dc 0
 *----------------------------------------------------------------
 .SUBCKT IVX1 A Y VDD VSS
 M1 Y A VSS VSS nmos W=0.65u L=0.13u
-M2 Y A VDD VDD pmos W=1u L=0.13u
+M2 Y A VDD VDD pmos W=0.65u L=0.13u
 C1 Y VSS 5f
 .ENDS
 
 .SUBCKT NDX1 A B Y VDD VSS
 M1 N1 A VSS VSS nmos W=0.65u L=0.13u
 M2 Y B N1 VSS nmos W=0.65u L=0.13u
-M3 Y A VDD VDD pmos W=1u L=0.13u
-M4 Y B VDD VDD pmos W=1u L=0.13u
+M3 Y A VDD VDD pmos W=0.65u L=0.13u
+M4 Y B VDD VDD pmos W=0.65u L=0.13u
 .ENDS
 
 X1 PWRUP A1 A2 VDD VSS NDX1

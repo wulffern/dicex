@@ -11,30 +11,22 @@
 .option TNOM=27 GMIN=1e-20
 
 .param p_vdd = 1.5
-.param p_vpg = {p_vdd*2/3}
-.param p_vng = {p_vdd*1/3}
-.param p_wp = 2.4
+.param p_wp = 1
 *----------------------------------------------------------------
 * Sources
 *----------------------------------------------------------------
 VDD VDD VSS dc p_vdd
-VND VND VSS dc p_vdd
-VNG VNG VSS dc p_vng
-VPD VPD VSS dc 0
-VPG VPG VSS dc p_vpg
 V3 VSS 0 dc 0
-B1 K VSS  v=-i(vpd)/i(vnd)
 
 *----------------------------------------------------------------
 * DUT
 *----------------------------------------------------------------
-M1 VND VNG VSS VSS nmos W=0.65u L=0.13u
-M2 VPD VPG VDD VDD pmos W={0.65u*p_wp} L=0.13u
+M1 VG VG VSS VSS nmos W=0.65u L=0.13u
+M2 VG VG VDD VDD pmos W={0.65u*p_wp} L=0.13u
 
 *----------------------------------------------------------------
 * Analysis
 *----------------------------------------------------------------
 .op
 
-.plot v(k) i(vnd) i(vpd) vt(m1) vt(m2)
-*.plot v(vg) gm(m1) rds(m1) id(m1) v(a)
+.plot v(vg)
