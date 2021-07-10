@@ -1,0 +1,26 @@
+
+
+plt=python3 ../py/plot.py
+
+mos:
+	${MAKE} aim TB=mos
+
+rosc:
+	${MAKE} aim TB=rosc
+
+
+plta:
+	${plt} rosc.csv Time "v(a1),v(a2),v(pwrup)" same
+
+
+
+aim:
+	-rm ${TB}.log
+	-rm ${TB}.csv
+	aimspice ${TB}.cir -o csv | tee ${TB}.sim
+	@cat ${TB}.sim | perl -ne "if(m/error/i){system('cat ${TB}.log'); exit 1;}"
+
+clean:
+	-rm *.csv
+	-rm *.log
+	-rm *.sim

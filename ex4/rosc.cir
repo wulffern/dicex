@@ -1,0 +1,56 @@
+* Equal strength
+
+*----------------------------------------------------------------
+* Include
+*----------------------------------------------------------------
+.include ../models/ptm_130.spi
+
+*----------------------------------------------------------------
+* Options
+*----------------------------------------------------------------
+.option TNOM=27 GMIN=1e-20 reltol=1e-6
+
+
+
+*----------------------------------------------------------------
+* Sources
+*----------------------------------------------------------------
+VDD VDD VSS dc 1.5
+V1 PWRUP VSS pwl 0 0 1n 0 1.1n 1.5
+V3 VSS 0 dc 0
+
+
+*----------------------------------------------------------------
+* DUT
+*----------------------------------------------------------------
+.SUBCKT IVX1 A Y VDD VSS
+M1 Y A VSS VSS nmos W=0.65u L=0.13u
+M2 Y A VDD VDD pmos W=1u L=0.13u
+C1 Y VSS 5f
+.ENDS
+
+.SUBCKT NDX1 A B Y VDD VSS
+M1 N1 A VSS VSS nmos W=0.65u L=0.13u
+M2 Y B N1 VSS nmos W=0.65u L=0.13u
+M3 Y A VDD VDD pmos W=1u L=0.13u
+M4 Y B VDD VDD pmos W=1u L=0.13u
+.ENDS
+
+X1 PWRUP A1 A2 VDD VSS NDX1
+X2 A2 A3 VDD VSS IVX1
+X3 A3 A4 VDD VSS IVX1
+X4 A4 A5 VDD VSS IVX1
+X5 A5 A6 VDD VSS IVX1
+X6 A6 A7 VDD VSS IVX1
+X7 A7 A1 VDD VSS IVX1
+
+*----------------------------------------------------------------
+* Analysis
+*----------------------------------------------------------------
+*.op
+
+
+.tran 9n 10n uic
+
+.plot v(A1) v(A2) v(A3) v(A4) v(A5) v(A6) v(A7) v(pwrup)
+*.plot v(vg) gm(m1) rds(m1) id(m1) v(a)
