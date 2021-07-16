@@ -8,6 +8,8 @@ fi
 
 # User specific environment and startup programs
 
+sudo chown -R ciceda:ciceda .
+
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 export PATH
