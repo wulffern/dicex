@@ -8,7 +8,7 @@ fi
 
 # User specific environment and startup programs
 
-sudo chown -R ciceda:ciceda .
+sudo chown -R ciceda:ciceda .vnc
 
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
 

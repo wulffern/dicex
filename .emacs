@@ -17,8 +17,7 @@
         (setq indent-tabs-mode nil)
         (infer-indentation-style)))
 
-(when (eq system-type 'darwin)
-  (setq mac-right-option-modifier 'none))
+
 
 (setq ns-pop-up-frames 'nil)
 
