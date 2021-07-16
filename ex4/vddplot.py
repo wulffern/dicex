@@ -22,8 +22,6 @@ y = np.array(y)
 
 dy = np.gradient(y)
 dx = np.gradient(x)
-print(dy)
-print(dx)
 d = dy/dx
 
 plt.figure(figsize=(10,8    ))
