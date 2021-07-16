@@ -1,7 +1,7 @@
 # dicex (Design of Integrated Circuits Examples)
 
 Getting started with SPICE and verilog can be a daunting task. Companies that
-make integrated circuits spend millions on Electronic Design Assistance (EDA)
+make integrated circuits spend millions on Electronic Design Automation (EDA)
 tools, and even then, the truth is, they are not great. 
 
 So, expecting open source EDA tools to be a polished, easy to use, easy to learn
@@ -22,6 +22,7 @@ building blocks for digital circuits, the digital gates.
 
 - Install docker from [docker.com](http://docker.com)
 - Install git from [git-scm.com](https://git-scm.com/downloadsm)
+- Install TigerVNC from [tigervnc.org](https://tigervnc.org)
 
 Open a terminal (mac, linux) or powershell (windows).
 
@@ -57,6 +58,11 @@ Start vncserver if you want GUI
 ``` sh
 ./vncserver
 ```
+
+Open TigerVNC, connect to *localhost:5900*
+
+For a demo, see [dicex and ciceda](https://www.youtube.com/watch?v=SpHw1MB3fus)
+
 
 If you're wondering how ciceda works, then look at [https://github.com/wulffern/ciceda](https://github.com/wulffern/ciceda)
 
