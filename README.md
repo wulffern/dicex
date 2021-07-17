@@ -18,14 +18,15 @@ easier to make complex systems with the commercial tools, and believe me, ICs ar
 For now though, let's focus on the transistors, resistor,  and the
 building blocks for digital circuits, the digital gates.
 
-# I already have a Ubuntu linux
+# I have a Ubuntu Linux 20
 If you're an NTNU student, then you can ssh to login.stud.ntnu.no and run
 
 ``` sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wulffern/dicex/main/ubuntu_install.sh)"
 ```
 
-# Getting started
+
+# I don't have Ubuntu Linux 20
 
 - Install docker from [docker.com](http://docker.com)
 - Install git from [git-scm.com](https://git-scm.com/downloadsm)
@@ -81,13 +82,13 @@ integrated circuits
 
 There are a few examples in spice/, for example 
 ``` sh
-cd ~/sim/spice/NCHIO
+cd sim/spice/NCHIO
 make
 ```
 # Verilog
 Examples for verilog are in ~/sim/verilog, for example
 ``` sh
-cd ~/sim/verilog/
+cd sim/verilog/
 ```
  
 Start waveform viewer
