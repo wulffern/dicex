@@ -18,6 +18,13 @@ easier to make complex systems with the commercial tools, and believe me, ICs ar
 For now though, let's focus on the transistors, resistor,  and the
 building blocks for digital circuits, the digital gates.
 
+# I already have a Ubuntu linux
+If you're an NTNU student, then you can ssh to login.stud.ntnu.no and run
+
+``` sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wulffern/dicex/main/ubuntu_install.sh)"
+```
+
 # Getting started
 
 - Install docker from [docker.com](http://docker.com)
