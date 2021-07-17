@@ -4,7 +4,7 @@ set -euo pipefail
 cd
 git clone https://github.com/wulffern/eda.git
 
-echo "source ~eda/bashrc" >> .bashrc
+echo "source ~/eda/bashrc" >> .bashrc
 
 [ -d pro ] || mkdir pro
 cd pro
