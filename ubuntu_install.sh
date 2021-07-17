@@ -10,4 +10,4 @@ echo "source ~/eda/bashrc" >> .bashrc
 cd pro
 git clone https://github.com/wulffern/dicex.git
 cd dicex
-pip3 install --user requirements.txt
+pip3 install --user -r requirements.txt
