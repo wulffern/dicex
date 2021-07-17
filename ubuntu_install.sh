@@ -7,7 +7,7 @@ git clone https://github.com/wulffern/eda.git
 echo "source ~eda/bashrc" >> .bashrc
 
 
-[ -d pro ] || mkdir pro
+mkdir -p pro
 cd pro
 git clone https://github.com/wulffern/dicex.git
 cd dicex
