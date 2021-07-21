@@ -21,7 +21,7 @@ case $TERM in
 		;;
 esac
 
-export PATH="/usr/local/opt/qt/bin:~/.emacs.d/bin:$PATH"
+export PATH="/usr/local/opt/qt/bin:~/.emacs.d/bin:$PATH:/opt/eda/bin"
 
 #vncserver :0 -geometry 1280x960
 

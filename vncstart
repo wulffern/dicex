@@ -1,1 +1,1 @@
-vncserver :0 -geometry 1920x1200 -localhost no
+vncserver :0 -geometry 1920x1200
