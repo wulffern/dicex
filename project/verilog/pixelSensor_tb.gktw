@@ -1,0 +1,54 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Wed Jul 21 18:27:37 2021
+[*]
+[dumpfile] "/home/others/ahomee/c/carstenw/pro/dicex/project/verilog/pixelSensor_tb.vcd"
+[dumpfile_mtime] "Wed Jul 21 18:21:54 2021"
+[dumpfile_size] 99497
+[savefile] "/home/others/ahomee/c/carstenw/pro/dicex/project/verilog/pixelSensor_tb.gktw.gtkw"
+[timestart] 2387140
+[size] 1442 852
+[pos] -1 -1
+*-11.576162 2391000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] pixelSensor_tb.
+[sst_width] 214
+[signals_width] 272
+[sst_expanded] 1
+[sst_vpaned_height] 240
+@22
+pixelSensor_tb.ps1.p_data[7:0]
+@20000
+-
+@8022
+pixelSensor_tb.ps1.p_data[7:0]
+@20000
+-
+-
+-
+@22
+pixelSensor_tb.ps1.p_data[7:0]
+pixelSensor_tb.pixelDataOut[7:0]
+@28
+pixelSensor_tb.erase
+pixelSensor_tb.expose
+@8028
+pixelSensor_tb.ps1.adc
+@20000
+-
+-
+-
+@28
+pixelSensor_tb.ps1.VBN1
+pixelSensor_tb.ps1.VBN2
+pixelSensor_tb.ps1.RESET
+pixelSensor_tb.ps1.READ
+pixelSensor_tb.ps1.RAMP
+pixelSensor_tb.ps1.EXPOSE
+pixelSensor_tb.ps1.EXPOSE
+pixelSensor_tb.ps1.ERASE
+@22
+pixelSensor_tb.ps1.DATA[7:0]
+@29
+pixelSensor_tb.clk
+[pattern_trace] 1
+[pattern_trace] 0
