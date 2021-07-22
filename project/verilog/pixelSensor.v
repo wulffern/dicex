@@ -36,13 +36,12 @@
 module PIXEL_SENSOR
   (
    input logic      VBN1,
-   input logic      VBN2,
    input logic      RAMP,
    input logic      RESET,
    input logic      ERASE,
    input logic      EXPOSE,
    input logic      READ,
-   inout wire [7:0] DATA
+   inout [7:0] DATA
 
    );
 

@@ -44,7 +44,7 @@ module pixelSensor_tb;
    //------------------------------------------------------------
    logic clk =0;
    logic reset =0;
-   parameter integer clk_period = 1000;
+   parameter integer clk_period = 500;
    parameter integer sim_end = clk_period*2400;
    always #clk_period clk=~clk;
 
@@ -55,22 +55,20 @@ module pixelSensor_tb;
 
    //Analog signals
    logic              anaBias1;
-   logic              anaBias2;
    logic              anaRamp;
    logic              anaReset;
 
    //Tie off the unused lines
-   assign anaBias2 = 1;
    assign anaReset = 1;
 
    //Digital
    logic              erase;
    logic              expose;
    logic              read;
-   wire [7:0]         pixData; //  We need this to be a wire, because we're tristating it
+   tri[7:0]         pixData; //  We need this to be a wire, because we're tristating it
 
    //Instanciate the pixel
-   PIXEL_SENSOR  #(.dv_pixel(dv_pixel))  ps1(anaBias1, anaBias2, anaRamp, anaReset, erase,expose, read,pixData);
+   PIXEL_SENSOR  #(.dv_pixel(dv_pixel))  ps1(anaBias1, anaRamp, anaReset, erase,expose, read,pixData);
 
    //------------------------------------------------------------
    // State Machine
@@ -85,7 +83,7 @@ module pixelSensor_tb;
    //State duration in clock cycles
    parameter integer c_erase = 5;
    parameter integer c_expose = 255;
-   parameter integer c_convert = 5;
+   parameter integer c_convert = 255;
    parameter integer c_read = 5;
 
    // Control the output signals
@@ -95,26 +93,32 @@ module pixelSensor_tb;
            erase <= 1;
            read <= 0;
            expose <= 0;
+           convert <= 0;
         end
         EXPOSE: begin
            erase <= 0;
            read <= 0;
            expose <= 1;
+           convert <= 0;
         end
         CONVERT: begin
            erase <= 0;
            read <= 0;
            expose <= 0;
+           convert = 1;
         end
         READ: begin
            erase <= 0;
            read <= 1;
            expose <= 0;
+           convert <= 0;
         end
         IDLE: begin
            erase <= 0;
            read <= 0;
            expose <= 0;
+           convert <= 0;
+
         end
       endcase // case (state)
    end // always @ (state)
@@ -139,14 +143,12 @@ module pixelSensor_tb;
               if(counter == c_expose) begin
                  next_state <= CONVERT;
                  state <= IDLE;
-                 convert = 1;
               end
            end
            CONVERT: begin
-              if(convert_stop) begin
+              if(counter == c_convert) begin
                  next_state <= READ;
                  state <= IDLE;
-                 convert = 0;
               end
            end
            READ:
@@ -168,7 +170,7 @@ module pixelSensor_tb;
    // DAC and ADC model
    //------------------------------------------------------------
    logic[7:0] data;
-   integer  val;
+
 
    // If we are to convert, then provide a clock via anaRamp
    // This does not model the real world behavior, as anaRamp would be a voltage from the ADC
@@ -186,19 +188,13 @@ module pixelSensor_tb;
    // data bus. Assert convert_stop to return control to main state machine.
    always_ff @(posedge clk or posedge reset) begin
       if(reset) begin
-         convert_stop =0;
          data =0;
       end
       if(convert) begin
-         data = val;
-         val = val + 1;
+         data +=  1;
       end
       else begin
-         val = 0;
-         convert_stop <= 0;
-      end
-      if(val == 256) begin
-         convert_stop <= 1;
+         data = 0;
       end
    end // always @ (posedge clk or reset)
 
