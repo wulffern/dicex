@@ -1,0 +1,182 @@
+**********************************************************************
+**        Copyright (c) 2021 Carsten Wulff Software, Norway
+** *******************************************************************
+** Created       : wulff at 2021-7-22
+** *******************************************************************
+**  The MIT License (MIT)
+**
+**  Permission is hereby granted, free of charge, to any person obtaining a copy
+**  of this software and associated documentation files (the "Software"), to deal
+**  in the Software without restriction, including without limitation the rights
+**  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+**  copies of the Software, and to permit persons to whom the Software is
+**  furnished to do so, subject to the following conditions:
+**
+**  The above copyright notice and this permission notice shall be included in all
+**  copies or substantial portions of the Software.
+**
+**  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+**  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+**  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+**  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+**  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+**  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+**  SOFTWARE.
+**
+**********************************************************************
+
+*----------------------------------------------------------------
+* Include
+*----------------------------------------------------------------
+.include ../../models/ptm_130_ngspice.spi
+.include ../../lib/SUN_TR_GF130N.spi
+
+*----------------------------------------------------------------
+* Options
+*----------------------------------------------------------------
+.option TNOM=27 GMIN=1e-20 reltol=1e-6
+
+*----------------------------------------------------------------
+* PARAMETERS
+*----------------------------------------------------------------
+
+.param TRF = 10n
+.param TCLK = 1u
+.param C_ERASE = 5
+.param C_EXPOSE = 255
+.param C_CONVERT = 255
+.param C_READ = 5
+
+*- Pulse Width of control signals
+.param PW_ERASE =  {(C_ERASE +1)*TCLK}
+.param PW_EXPOSE =  {(C_EXPOSE +1)*TCLK}
+.param PW_CONVERT =  {(C_CONVERT +1)*TCLK}
+.param PW_READ =  {(C_READ +1)*TCLK}
+
+*- Delay of control signals
+.param TD_ERASE = {TCLK }
+.param TD_EXPOSE = {TD_ERASE + PW_ERASE + TCLK}
+.param TD_CONVERT = {TD_EXPOSE + PW_EXPOSE + TCLK}
+.param TD_READ = {TD_CONVERT + PW_CONVERT + TCLK}
+.param PERIOD = {TD_READ + PW_READ + TCLK}
+
+*- Analog parameters
+.param VDD = 1.5
+.param VADC_MIN = 0.5
+.param VADC_MAX = 1.2
+.param VADC_REF = {VADC_MAX - VADC_MIN}
+.param VADC_LSB = {VADC_REF/256}
+
+*----------------------------------------------------------------
+* Sources
+*----------------------------------------------------------------
+VDD VDD VSS dc VDD
+VSS VSS 0 dc 0
+
+*- Control signals
+VERASE ERASE 0 dc 0 pulse (0 VDD TD_ERASE TRF TRF PW_ERASE PERIOD)
+VEXPOSE EXPOSE 0 dc 0 pulse (0 VDD TD_EXPOSE TRF TRF PW_EXPOSE PERIOD)
+VCONVERT CONVERT 0 dc 0 pulse (0 VDD TD_CONVERT TRF TRF PW_CONVERT PERIOD)
+VREAD READ 0 dc 0 pulse (0 VDD TD_READ TRF TRF PW_READ PERIOD)
+
+*- ADC related sources
+VREF VREF 0 DC VADC_REF
+VMAX VMAX 0 DC VADC_MAX
+VMIN VMIN 0 DC VADC_MIN
+
+
+*----------------------------------------------------------------
+* BIAS
+*----------------------------------------------------------------
+* Use a current mirror transistor from the SUN_TR_GF130N library
+IPB1 0 VBN1 dc 1u
+XMNB0 VBN1 VBN1 VSS VSS NCHCM2
+
+*----------------------------------------------------------------
+* DUT
+*----------------------------------------------------------------
+.include pixelSensor.cir
+XDUT VBN1 RAMP RESET ERASE EXPOSE READ
++ DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 PIXEL_SENSOR
+
+
+*----------------------------------------------------------------
+* RAMP
+*----------------------------------------------------------------
+* Use a capacitor and current source to model a ramp
+* I = C x dV/dt, where
+* dt = PW_CONVERT
+* C = 1n
+* dV = VADC_MAX - VADC_MIN
+BR1 0 RAMP I = V(CONVERT)*( 1n*(VADC_MAX - VADC_MIN)/PW_CONVERT)
+CR1 RAMP 0 1n ic=0
+
+* SPICE freaks out if any node only have current sources and capacitors on it. so insert a resistor to ground
+R1 RAMP 0 1T
+
+* Model reset as a variable resistor to
+BR2 RAMP VMIN I=V(ERASE)*V(RAMP,VMIN)/100
+
+
+*----------------------------------------------------------------
+* Model the ramp generation and data for the memory
+*----------------------------------------------------------------
+* I could not really think of a good way to generate digital signals in SPICE
+* So I generated the analog ramp, then digitize it to generate the DATA bit
+* In a real world circuit we would use a DAC, because in SystemVerilog, it's
+* easy to generate a digital bus
+B1 VADC 0 V = V(RAMP) - VADC_MIN
+XADC7 VADC   REST_7 VREF DATA_7 VDD ADC_1BIT
+XADC6 REST_7 REST_6 VREF DATA_6 VDD ADC_1BIT
+XADC5 REST_6 REST_5 VREF DATA_5 VDD ADC_1BIT
+XADC4 REST_5 REST_4 VREF DATA_4 VDD ADC_1BIT
+XADC3 REST_4 REST_3 VREF DATA_3 VDD ADC_1BIT
+XADC2 REST_3 REST_2 VREF DATA_2 VDD ADC_1BIT
+XADC1 REST_2 REST_1 VREF DATA_1 VDD ADC_1BIT
+XADC0 REST_1 REST_0 VREF DATA_0 VDD ADC_1BIT
+XDAC0 DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 DO VDD DAC_8BIT
+
+*----------------------------------------------------------------
+* 1-bit ADC model
+*----------------------------------------------------------------
+* Use the well know fact that we can connect multiple 1 bit ADCs in series,
+* as long as we multiply the analog remainder by two.
+* Or in maths:
+*   if in > ref/2:
+*      d = 1
+*      out = 2*in - ref
+*   else:
+*      d = 0
+*      out = 2*in
+.SUBCKT ADC_1BIT VIN VOUT VREF DATA VDD
+B1 D 0 V= V(VIN) > V(VREF)/2 ? 1 : 0
+B2 VOUT 0  V = 2*(V(VIN) - V(VREF)/2*V(D))
+B3 DATA 0 V = V(D)*V(VDD)
+.ENDS
+
+*----------------------------------------------------------------
+* 8-bit DAC model model
+*----------------------------------------------------------------
+* integer = 2^7*b7 + 2^6*b6 ... 2^0*b0
+.SUBCKT DAC_8BIT DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 DO VDD
+B1 DO_VDD 0 V = 128*V(DATA_7) + 64*V(DATA_6) + 32*V(DATA_5) + 16*V(DATA_4)+ 8*V(DATA_3) + 4*V(DATA_2) + 2*V(DATA_1) + 1*V(DATA_0)
+B2 DO 0 V = V(DO_VDD)/V(VDD)
+.ENDS
+
+
+*----------------------------------------------------------------
+* NGSPICE control
+*----------------------------------------------------------------
+
+.control
+set color0=white
+set color1=black
+unset askquit
+tran 100n 600u
+*plot V(ERASE) V(EXPOSE) V(CONVERT) V(READ)
+plot V(RAMP) V(CONVERT) V(ERASE)
+plot V(DO)
+*V(DATA_4) V(DATA_3) V(DATA_2) V(DATA_1) V(DATA_0)
+
+.endc
+.end
