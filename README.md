@@ -25,6 +25,8 @@ If you're an NTNU student, then you can ssh to login.stud.ntnu.no and run
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wulffern/dicex/main/ubuntu_install.sh)"
 ```
 
+For information on login.stud.ntnu.no see https://innsida.ntnu.no/wiki/-/wiki/English/ssh
+
 
 # I don't have Ubuntu Linux 20
 
