@@ -12,3 +12,10 @@ solve:
 
 run:
 	python3 run.py
+
+clean:
+	-rm *.vcd
+	-rm *.log
+	-rm *.txt
+	-rm result.yaml
+	-rm maze
