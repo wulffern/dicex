@@ -3,6 +3,7 @@
 ## Imports
 import random
 import time
+import sys
 
 
 ## Functions
@@ -36,8 +37,8 @@ def surroundingCells(rand_wall):
 wall = 'w'
 cell = 'c'
 unvisited = 'u'
-height = 9
-width = 17
+height = int(sys.argv[1])
+width = int(sys.argv[2])
 maze = []
 
 

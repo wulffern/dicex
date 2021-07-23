@@ -1,11 +1,10 @@
 
-W=17
-H=9
+MSIZE=17
 .PHONY:maze
 maze:
 
-	python3 maze.py ${W} ${H} > maze.txt
+	python3 maze.py ${MSIZE} ${MSIZE} > maze.txt
 
-ps:
-	iverilog -g2012 -o maze -c maze.fl -DMAZE_SEED=34 -DMAZE_WIDTH=${W} -DMAZE_HEIGHT=${H}
+solve:
+	iverilog -g2012 -o maze -c maze.fl -DMAZE_SEED=34 -DMAZE_SIZE=${MSIZE}
 	vvp -n maze
