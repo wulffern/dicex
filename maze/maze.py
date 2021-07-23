@@ -1,5 +1,7 @@
 # Maze generator -- Randomized Prim Algorithm
 
+# Copy from https://github.com/OrWestSide/python-scripts/blob/master/maze.py
+
 ## Imports
 import random
 import time
