@@ -14,6 +14,7 @@ run:
 	python3 run.py
 
 clean:
+	-rm allresults.yaml
 	-rm *.vcd
 	-rm *.log
 	-rm *.txt

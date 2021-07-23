@@ -4,7 +4,7 @@
 import random
 import time
 import sys
-
+import os
 
 ## Functions
 def printMaze(maze):
@@ -41,6 +41,7 @@ height = int(sys.argv[1])
 width = int(sys.argv[2])
 maze = []
 
+random.seed(a=None)
 
 
 # Denote all cells as unvisited
@@ -51,8 +52,8 @@ for i in range(0, height):
     maze.append(line)
 
 # Randomize starting point and set it a cell
-starting_height = int(random.random()*height)
 starting_width = int(random.random()*width)
+starting_height = int(random.random()*height)
 if (starting_height == 0):
     starting_height += 1
 if (starting_height == height-1):
