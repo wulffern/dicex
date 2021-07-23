@@ -8,3 +8,7 @@ maze:
 solve:
 	iverilog -g2012 -o maze -c maze.fl -DMAZE_SEED=34 -DMAZE_SIZE=${MSIZE}
 	vvp -n maze
+
+
+run:
+	python3 run.py

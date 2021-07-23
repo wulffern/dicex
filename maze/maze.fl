@@ -1,4 +1,2 @@
 mazeEscaper.v
 maze_tb.v
-stack.v
-lfsr.v
