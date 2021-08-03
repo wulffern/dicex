@@ -78,9 +78,8 @@ module maze_tb;
 
         fo = $fopen("path.txt","w");
         #sim_end
-          for (y = 0; y<size; y=x+1) begin
-             for (x = 0; x<size; x=x+1)
-               $fwrite(fo,"%b\n",path[x]);
+          for (y = 0; y<size; y=y+1) begin
+               $fwrite(fo,"%b\n",path[y]);
           end
 
         #sim_end  begin

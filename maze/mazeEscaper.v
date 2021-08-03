@@ -45,7 +45,6 @@ module mazeEscaper ( input logic [size-1:0] maze [size-1:0],
          done = 0;
          waste = 0;
 
-
       end
       else begin
          case(state)
