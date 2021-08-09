@@ -11,9 +11,6 @@ hand on the wall) is sound.
 The generator is based on what I found when I googled "Maze generator algorithm"
 and found the wikipedia page. It's an implementation of [Iterative Implementation](https://en.wikipedia.org/wiki/Maze_generation_algorithm)
 
-![maze](maze.gif|width=400)
-
-
 # Files
 
 ```
@@ -81,3 +78,4 @@ make mazev solve SEED=21
 - The "bad" algorithm does really badly with MSIZE=31 and SEED=29. Nice to use
   for testing
 
+<img src="maze.gif" width="400" height="400">
