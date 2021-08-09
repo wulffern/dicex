@@ -44,16 +44,16 @@ cd dicex
 
 ```
   
-On mac
+On mac, open terminal
 
 ``` sh
 ./ciceda_mac.sh
 ```
 
-On windows
+On windows, open powershell
 
 ``` sh
-./ciceda_windows.bat
+ciceda_windows.bat
 ```
 
 
