@@ -44,13 +44,13 @@ cd dicex
 
 ```
   
-On mac, open terminal
+On mac
 
 ``` sh
 ./ciceda_mac.sh
 ```
 
-On windows, open powershell
+On windows
 
 ``` sh
 ciceda_windows.bat
