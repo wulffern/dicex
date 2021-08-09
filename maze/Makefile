@@ -1,9 +1,9 @@
 
-MSIZE=21
-SEED=31
+MSIZE=31
+SEED=29
 .PHONY:maze
-maze:
-	python3 maze.py ${MSIZE} ${MSIZE} > maze.txt
+
+all: mazev solve plot
 
 mazev:
 	-rm maze.txt
