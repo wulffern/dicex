@@ -1,6 +1,6 @@
 
-MSIZE=31
-SEED=30
+MSIZE=21
+SEED=31
 .PHONY:maze
 maze:
 	python3 maze.py ${MSIZE} ${MSIZE} > maze.txt
@@ -16,6 +16,8 @@ solve:
 	iverilog -g2012 -o maze -c maze.fl -DMAZE_SEED=34 -DMAZE_SIZE=${MSIZE}
 	vvp -n maze
 
+plot:
+	python3 plotmaze.py
 
 run:
 	python3 run.py
