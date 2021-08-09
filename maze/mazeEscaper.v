@@ -1,14 +1,15 @@
 
-module mazeEscaper ( input logic [size-1:0] maze [size-1:0],
+module mazeEscaper ( input logic [size-1:0] maze[size-1:0],
                      input logic             clk,
                      input logic             rst,
-                     output logic done,
-                     output logic [size-1:0] path [size-1:0]
+                     output logic [N-1:0]           x,
+                     output logic [N-1:0]           y,
+                     output logic            done,
+                     output logic [size-1:0] path[size-1:0]
                      );
 
    parameter size = 9;
    parameter N = 3;
-
 
    parameter FIND_START=0, FIND_STOP=1, VISIT=2, PICK_NEXT=3,MOVE=4,STOP=5,WASTE=6;
 
@@ -16,9 +17,6 @@ module mazeEscaper ( input logic [size-1:0] maze [size-1:0],
    parameter LEFT=0,RIGHT=1, DOWN=2, UP=3,NONE=4;
 
    logic [3:0]                               state;
-
-   logic [N-1:0]                             x;
-   logic [N-1:0]                             y;
    logic [N-1:0]                             sx;
    logic [N-1:0]                             sy;
    int                                       i;
@@ -145,13 +143,5 @@ module mazeEscaper ( input logic [size-1:0] maze [size-1:0],
          endcase
       end // else: !if(rst)
    end // always_ff @ (posedge clk or posedge rst)
-
-
-
-
-
-
-
-
 
 endmodule

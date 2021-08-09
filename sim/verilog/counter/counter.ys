@@ -1,0 +1,24 @@
+# read design
+read_verilog  counter.v
+read_verilog ../../../lib/demo.v
+hierarchy -top counter
+
+# the high-level stuff
+proc; fsm; opt; memory; opt
+
+# mapping to internal cell library
+techmap; opt
+
+synth
+
+# mapping flip-flops to mycells.lib
+dfflibmap -liberty ../../../lib/demo.lib
+
+# mapping logic to mycells.lib
+abc -liberty ../../../lib/demo.lib
+
+write_verilog counter_netlist.v
+write_spice counter_netlist.sp
+
+# cleanup
+clean

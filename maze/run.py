@@ -3,15 +3,23 @@
 import os
 import yaml
 import re
+import random
+import numpy as np
 
 runs=5
 data = dict()
 best = 1e6;
 worst = 0;
 
+random.seed(a=None)
+
+
+
+
 os.system(" date > run.log && make clean 2>> run.log 1>> run.log")
 for r in range(0,runs):
-    status = os.system("make maze solve 2>> run.log 1>> run.log")
+    seed = int(random.random()*np.power(2,17))
+    status = os.system(f"make mazev solve SEED={seed} 2>> run.log 1>> run.log")
 
     if(status):
         os.system("echo \"Note: no $ allowed in verilog file\" >> run.log")
@@ -30,6 +38,9 @@ for r in range(0,runs):
 
         with open("maze.txt","r") as fi:
             obj["maze"] = fi.read()
+
+        with open("turtle.txt","r") as fi:
+            obj["turtle"] = fi.read()
 
         with open("path.txt","r") as fi:
             obj["path"] = fi.read()

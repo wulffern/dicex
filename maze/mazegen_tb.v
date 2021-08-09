@@ -9,7 +9,7 @@ module mazegen_tb;
    int   cycles  =0 ;
 
    parameter integer clk_period = 1;
-   parameter integer sim_end = clk_period*5000;
+   parameter integer sim_end = clk_period*20000;
    always #clk_period clk=~clk;
 
    always @(posedge clk) begin
