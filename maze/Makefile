@@ -1,6 +1,7 @@
 
 MSIZE=31
 SEED=29
+OPT=
 .PHONY:maze
 
 all: mazev solve plot
@@ -17,7 +18,7 @@ solve:
 	vvp -n maze
 
 plot:
-	python3 plotmaze.py
+	python3 plotmaze.py ${OPT}
 
 run:
 	python3 run.py

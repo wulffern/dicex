@@ -11,6 +11,9 @@ hand on the wall) is sound.
 The generator is based on what I found when I googled "Maze generator algorithm"
 and found the wikipedia page. It's an implementation of [Iterative Implementation](https://en.wikipedia.org/wiki/Maze_generation_algorithm)
 
+![maze](maze.gif)
+
+
 # Files
 
 ```
@@ -40,6 +43,27 @@ make mazev
 ```sh
 make solve
 ```
+
+# Run with random seed
+```sh
+make run
+```
+
+# See results after solving
+
+```sh
+cat results.yaml
+```
+
+# Show animation
+This requires that pygame works
+
+```sh
+make plot
+```
+
+
+
 
 # The problem you should solve
 
