@@ -11,6 +11,8 @@ hand on the wall) is sound.
 The generator is based on what I found when I googled "Maze generator algorithm"
 and found the wikipedia page. It's an implementation of [Iterative Implementation](https://en.wikipedia.org/wiki/Maze_generation_algorithm)
 
+If you send make a better one, try to send it to carstenw@ntnu.no ;-)
+
 <img src="maze.gif" width="400" height="400">
 
 # Files
