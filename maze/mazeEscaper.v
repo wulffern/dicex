@@ -92,7 +92,7 @@ module mazeEscaper ( input logic [size-1:0] maze[size-1:0],
            end
            WASTE: begin
               // Let's waste some time just to get a bad result
-              if(waste > 100)
+              if(waste > 1000)
                 state <= VISIT;
               waste += 1;
            end

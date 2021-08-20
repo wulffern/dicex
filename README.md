@@ -30,9 +30,12 @@ For information on login.stud.ntnu.no see https://innsida.ntnu.no/wiki/-/wiki/En
 
 # I don't have Ubuntu Linux 20
 
+For a demo, see [dicex and ciceda](https://www.youtube.com/watch?v=SpHw1MB3fus)
+
 - Install docker from [docker.com](http://docker.com)
 - Install git from [git-scm.com](https://git-scm.com/downloadsm)
-- Install TigerVNC from [tigervnc.org](https://tigervnc.org)
+- Install TigerVNC from [tigervnc.org](https://tigervnc.org). This is not
+  necessary on Mac as you can use 
 
 Open a terminal (mac, linux) or powershell (windows).
 
@@ -66,13 +69,29 @@ On linux
 Start vncserver if you want GUI
 
 ``` sh
-./vncserver
+./vncstart
 ```
 
-Open TigerVNC, connect to *localhost:5900*
+You will be asked to enter a password the first time. The password is for the
+VNC server, and you can use whatever.
 
-For a demo, see [dicex and ciceda](https://www.youtube.com/watch?v=SpHw1MB3fus)
+This is a very short shell script that starts vncserver
 
+``` sh
+$ cat vncstart
+vncserver :0 -geometry 1920x1200
+```
+
+
+If the text is too small, then change the geometry to fit your screen resolution
+(or the aspect ratio). You need to kill the vncserver if you want to start a new
+one with a different geometry
+
+``` sh
+vncserver -kill :0
+```
+
+Open TigerVNC, or on mac Finder -> Go -> Connect to server , connect to *localhost:5900*
 
 If you're wondering how ciceda works, then look at [https://github.com/wulffern/ciceda](https://github.com/wulffern/ciceda)
 
