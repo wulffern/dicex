@@ -30,12 +30,12 @@ For information on login.stud.ntnu.no see https://innsida.ntnu.no/wiki/-/wiki/En
 
 # I don't have Ubuntu Linux 20
 
-For a demo, see [dicex and ciceda](https://www.youtube.com/watch?v=SpHw1MB3fus)
-
 - Install docker from [docker.com](http://docker.com)
 - Install git from [git-scm.com](https://git-scm.com/downloadsm)
 - Install TigerVNC from [tigervnc.org](https://tigervnc.org). This is not
   necessary on Mac as you can use 
+
+For a demo, see [dicex and ciceda](https://www.youtube.com/watch?v=SpHw1MB3fus)
 
 Open a terminal (mac, linux) or powershell (windows).
 
@@ -75,17 +75,16 @@ Start vncserver if you want GUI
 You will be asked to enter a password the first time. The password is for the
 VNC server, and you can use whatever.
 
-This is a very short shell script that starts vncserver
+vncstart is a short shell script that starts a vncserver, it looks like this
 
 ``` sh
 $ cat vncstart
 vncserver :0 -geometry 1920x1200
 ```
 
-
-If the text is too small, then change the geometry to fit your screen resolution
+If the text in the VNC connection is too small, then change the geometry to fit your screen resolution
 (or the aspect ratio). You need to kill the vncserver if you want to start a new
-one with a different geometry
+one with a different geometry.
 
 ``` sh
 vncserver -kill :0
