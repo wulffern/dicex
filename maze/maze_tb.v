@@ -62,8 +62,8 @@ module maze_tb;
    mazeEscaper #(.size(size),.N(N)) me(maze, clk,rst,px,py,done,path);
 
    // Updated cycles everytime path changes
-   int                   path_cycles = 0;
-   int                   done_cycles = 0;
+   int                   path_cycles = sim_end;
+   int                   done_cycles = sim_end;
    logic                 pathIsWrong = 0;
    logic                 startIsCorrect = 0;
    logic                 endIsCorrect = 0;
