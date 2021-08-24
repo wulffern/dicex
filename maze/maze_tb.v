@@ -38,6 +38,9 @@ module maze_tb;
 
    parameter integer clk_period = 1;
    parameter integer sim_end = clk_period*20000;
+   parameter integer sim_check = sim_end - 2;
+   
+
    always #clk_period clk=~clk;
 
    always @(posedge clk) begin
@@ -67,6 +70,7 @@ module maze_tb;
    logic                 pathIsWrong = 0;
    logic                 startIsCorrect = 0;
    logic                 endIsCorrect = 0;
+   logic                 check = 0;
 
    always @(px,py) begin
       if(fxy)
@@ -78,13 +82,34 @@ module maze_tb;
       always @(path[i]) path_cycles = cycles;
    end
 
+   always_ff @(posedge check) begin
+
+      for(x=0;x<size;x++) begin
+         for(y=0;y<size;y++) begin
+            if(path[x][y] && maze[x][y])
+                pathIsWrong = 1;
+            
+         //$display "%d", 1 << $clog2(path[x]);
+         
+        // $display("%b", maze[ 1 <<$clog2(path[x]) ]);
+        end
+        //pathIsWrong |= |(~maze[x] & path[x]);
+        //$display(" %b",~maze[x] & path[x]);
+
+      end
+
+      //$display("m %b",~maze[0]);
+      //$display("p %b",path[0]);
+      //$display("m %b",~maze[size-1]);
+      //$display("p %b",path[size-1]);
+      //$display(" %b",~|(maze[0] ^ ~path[0]));
+
+      startIsCorrect = ~|(maze[0] ^ ~path[0]);
+      endIsCorrect = ~|(maze[size-1] ^ ~path[size-1]);
+   end
+
    always_ff @(posedge done) begin
       done_cycles = cycles;
-      for(x=0;x<size;x++)
-        pathIsWrong |= |(maze[x] & path[x]);
-
-      startIsCorrect = maze[0] ^ ~path[0];
-      endIsCorrect = maze[size-1] ^ ~path[size-1];
    end
 
    //------------------------------------------------------------
@@ -115,6 +140,8 @@ module maze_tb;
         //           $dumpvars(0,maze[y]);
         //        end
 
+        #sim_check check = 1;
+        
 
         fo = $fopen("path.txt","w");
         #sim_end
