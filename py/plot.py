@@ -52,4 +52,5 @@ else:
     plot(xname,yname,ptype)
 
 tikzplotlib.save(fname.replace(".csv",".pgf"))
+plt.savefig(fname.replace(".csv",".pdf"))
 plt.show()

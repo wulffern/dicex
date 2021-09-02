@@ -5,10 +5,15 @@ On windows, text files usually contain line feed and return for newlines (\r\n),
 
 There is an option in git to convert text files to windows format. That option must be turned off.
 
-To fix:
+
+Option 1:
 - remove dicex
 - find the option in git, and change it. Or uninstall and install, I think there is an option during the install.
 - Try again
+
+Option 2:
+
+```git clone https://github.com/wulffern/dicex --config core.autocrlf=input```
 
 ## Something is wrong
 
