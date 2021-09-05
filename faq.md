@@ -1,6 +1,6 @@
 # Frequently asked questions
 
-## On windows, it complains about "bash profile" something
+## On windows, it complains about "bash profile" something, or USER not found.
 On windows, text files usually contain line feed and return for newlines (\r\n), however, linux and mac only use line feed (\n).
 
 There is an option in git to convert text files to windows format. That option must be turned off.
