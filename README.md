@@ -41,10 +41,16 @@ Open a terminal (mac, linux) or powershell (windows).
 
 Navigate to where you want your files.
 
+On linux or mac
 ``` sh
 git clone https://github.com/wulffern/dicex
 cd dicex
+```
 
+On windows
+```
+git clone https://github.com/wulffern/dicex --config core.autocrlf=input
+cd dicex
 ```
   
 On mac
