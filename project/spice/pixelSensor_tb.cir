@@ -35,14 +35,14 @@
 *----------------------------------------------------------------
 * Options
 *----------------------------------------------------------------
-.option TNOM=27 GMIN=1e-20 reltol=1e-6
+.option TNOM=27 GMIN=1e-15 reltol=1e-6 abstol=1e-6
 
 *----------------------------------------------------------------
 * PARAMETERS
 *----------------------------------------------------------------
 
 .param TRF = 10n
-.param TCLK = 1u
+.param TCLK = 100n
 .param C_ERASE = 5
 .param C_EXPOSE = 255
 .param C_CONVERT = 255
@@ -64,7 +64,7 @@
 *- Analog parameters
 .param VDD = 1.5
 .param VADC_MIN = 0.5
-.param VADC_MAX = 1.2
+.param VADC_MAX = 1.1
 .param VADC_REF = {VADC_MAX - VADC_MIN}
 .param VADC_LSB = {VADC_REF/256}
 
@@ -83,6 +83,7 @@ VREAD READ 0 dc 0 pulse (0 VDD TD_READ TRF TRF PW_READ PERIOD)
 *- ADC related sources
 VREF VREF 0 DC VADC_REF
 VMAX VMAX 0 DC VADC_MAX
+VRESET VRESET VMAX DC 0
 VMIN VMIN 0 DC VADC_MIN
 
 
@@ -97,8 +98,8 @@ XMNB0 VBN1 VBN1 VSS VSS NCHCM2
 * DUT
 *----------------------------------------------------------------
 .include pixelSensor.cir
-XDUT VBN1 RAMP RESET ERASE EXPOSE READ
-+ DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 PIXEL_SENSOR
+XDUT VBN1 VRAMP VRESET ERASE EXPOSE READ
++ DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 VDD VSS PIXEL_SENSOR
 
 
 *----------------------------------------------------------------
@@ -109,14 +110,14 @@ XDUT VBN1 RAMP RESET ERASE EXPOSE READ
 * dt = PW_CONVERT
 * C = 1n
 * dV = VADC_MAX - VADC_MIN
-BR1 0 RAMP I = V(CONVERT)*( 1n*(VADC_MAX - VADC_MIN)/PW_CONVERT)
-CR1 RAMP 0 1n ic=0
+BR1 0 VRAMP I = V(CONVERT)*( 1n*(VADC_MAX - VADC_MIN)/PW_CONVERT)
+CR1 VRAMP 0 1n ic=0
 
 * SPICE freaks out if any node only have current sources and capacitors on it. so insert a resistor to ground
-R1 RAMP 0 1T
+R1 VRAMP 0 1T
 
 * Model reset as a variable resistor to
-BR2 RAMP VMIN I=V(ERASE)*V(RAMP,VMIN)/100
+BR2 VRAMP VMIN I=V(ERASE)*V(VRAMP,VMIN)/100
 
 
 *----------------------------------------------------------------
@@ -126,15 +127,15 @@ BR2 RAMP VMIN I=V(ERASE)*V(RAMP,VMIN)/100
 * So I generated the analog ramp, then digitize it to generate the DATA bit
 * In a real world circuit we would use a DAC, because in SystemVerilog, it's
 * easy to generate a digital bus
-B1 VADC 0 V = V(RAMP) - VADC_MIN
-XADC7 VADC   REST_7 VREF DATA_7 VDD ADC_1BIT
-XADC6 REST_7 REST_6 VREF DATA_6 VDD ADC_1BIT
-XADC5 REST_6 REST_5 VREF DATA_5 VDD ADC_1BIT
-XADC4 REST_5 REST_4 VREF DATA_4 VDD ADC_1BIT
-XADC3 REST_4 REST_3 VREF DATA_3 VDD ADC_1BIT
-XADC2 REST_3 REST_2 VREF DATA_2 VDD ADC_1BIT
-XADC1 REST_2 REST_1 VREF DATA_1 VDD ADC_1BIT
-XADC0 REST_1 REST_0 VREF DATA_0 VDD ADC_1BIT
+B1 VADC 0 V = V(VRAMP) - VADC_MIN
+XADC7 VADC   REST_7 VREF DATA_7  READ CONVERT VDD ADC_1BIT
+XADC6 REST_7 REST_6 VREF DATA_6  READ CONVERT VDD ADC_1BIT
+XADC5 REST_6 REST_5 VREF DATA_5  READ CONVERT VDD ADC_1BIT
+XADC4 REST_5 REST_4 VREF DATA_4  READ CONVERT VDD ADC_1BIT
+XADC3 REST_4 REST_3 VREF DATA_3  READ CONVERT VDD ADC_1BIT
+XADC2 REST_3 REST_2 VREF DATA_2  READ CONVERT VDD ADC_1BIT
+XADC1 REST_2 REST_1 VREF DATA_1  READ CONVERT VDD ADC_1BIT
+XADC0 REST_1 REST_0 VREF DATA_0  READ CONVERT VDD ADC_1BIT
 XDAC0 DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 DO VDD DAC_8BIT
 
 *----------------------------------------------------------------
@@ -149,11 +150,17 @@ XDAC0 DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 DO VDD DAC_8BIT
 *   else:
 *      d = 0
 *      out = 2*in
-.SUBCKT ADC_1BIT VIN VOUT VREF DATA VDD
+*
+* Model the DATA output as pulled to VDD when we're reading
+.SUBCKT ADC_1BIT VIN VOUT VREF DATA READ CONVERT VDD
 B1 D 0 V= V(VIN) > V(VREF)/2 ? 1 : 0
 B2 VOUT 0  V = 2*(V(VIN) - V(VREF)/2*V(D))
-B3 DATA 0 V = V(D)*V(VDD)
+B3 DATA_INT 0 V = V(D)*V(VDD)
+B4 DATA_INT DATA I=V(CONVERT)*V(DATA_INT,DATA)/1k
+B5 DATA VDD I=V(READ)*V(DATA,VDD)/1e4
 .ENDS
+
+
 
 *----------------------------------------------------------------
 * 8-bit DAC model model
@@ -173,11 +180,21 @@ B2 DO 0 V = V(DO_VDD)/V(VDD)
 set color0=white
 set color1=black
 unset askquit
-tran 100n 600u
+tran 1n 60u
 *plot V(ERASE) V(EXPOSE) V(CONVERT) V(READ)
-plot V(RAMP) V(CONVERT) V(ERASE)
+plot V(VRAMP) V(CONVERT) V(ERASE)
 plot V(DO)
+plot V(XDUT.VSTORE) V(ERASE) V(EXPOSE) V(CONVERT) V(VRAMP) V(XDUT.VCMP_OUT) V(READ)
+plot V(XDUT.XM1.VG) V(XDUT.VCMP_OUT)
 *V(DATA_4) V(DATA_3) V(DATA_2) V(DATA_1) V(DATA_0)
 
+plot v(xdut.xm1.vg) v(xdut.xm1.dmem)
+plot v(xdut.xm2.vg) v(xdut.xm2.dmem)
+plot v(xdut.xm3.vg) v(xdut.xm3.dmem)
+plot v(xdut.xm4.vg) v(xdut.xm4.dmem)
+plot v(xdut.xm5.vg) v(xdut.xm5.dmem)
+plot v(xdut.xm6.vg) v(xdut.xm6.dmem)
+plot v(xdut.xm7.vg) v(xdut.xm7.dmem)
+plot v(xdut.xm8.vg) v(xdut.xm8.dmem)
 .endc
 .end

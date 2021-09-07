@@ -56,7 +56,7 @@ module PIXEL_SENSOR
    logic [7:0]      p_data;
 
    //----------------------------------------------------------------
-   // RESET
+   // ERASE
    //----------------------------------------------------------------
    // Reset the pixel value on pixRst
    always @(ERASE) begin
