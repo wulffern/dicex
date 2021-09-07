@@ -131,7 +131,7 @@ In GTKWave, File -> Open New Tab. Find counter/test.vcd
 
 
 # Support
-I would try carsten@ntnu.no, however, I get about 100 emails per day, so my
+I would try carstenw@ntnu.no, however, I get about 100 emails per day, so my
 response rate is not great. 
 
 
