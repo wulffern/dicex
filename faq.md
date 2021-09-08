@@ -1,5 +1,9 @@
 # Frequently asked questions
 
+## On windows docker won't run (ciceda_windows.bat)
+
+Clone the repository in a directory without spaces. 
+
 ## On windows, it complains about "bash profile" something, or USER not found.
 On windows, text files usually contain line feed and return for newlines (\r\n), however, linux and mac only use line feed (\n).
 
