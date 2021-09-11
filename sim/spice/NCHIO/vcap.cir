@@ -1,0 +1,12 @@
+* gate cap
+
+.include ../../../models/ptm_130.spi
+
+vdrain D 0 dc 1
+vgaini G 0 dc 0.5
+vbulk B 0 dc 0
+vcur S 0 dc 0
+
+M1 D G S B nmos  w=1u  l=1u
+
+.op
