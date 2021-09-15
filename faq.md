@@ -4,8 +4,8 @@
 
 Some users have experience problems with TigerVNC client. If you experience the
 same, then I would recommend you try
-[realvnc](https://www.realvnc.com/en/connect/download/viewer/windows/) or [TightVNC](https://www.tightvnc.com)
-
+[RealVNC](https://www.realvnc.com/en/connect/download/viewer/windows/) or [TightVNC](https://www.tightvnc.com)
+    
 ## On windows docker won't run (ciceda_windows.bat)
 
 Clone the repository in a directory without spaces. 
