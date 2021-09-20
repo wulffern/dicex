@@ -21,6 +21,8 @@ def plot(xname,yname,ptype=None):
     #- Plot
     if(ptype == "logy"):
         plt.semilogy(x,y,label=yname)
+    elif(ptype == "logx"):
+        plt.semilogx(x,y,label=yname)
     elif(ptype == "db20"):
         plt.semilogx(x,20*np.log10(y),label="dB20(" + yname + ")")
     else:
