@@ -8,7 +8,7 @@
 *----------------------------------------------------------------
 * Options
 *----------------------------------------------------------------
-.option TNOM=27 GMIN=1e-20 reltol=1e-6 abstol=1e-8
+.option TNOM=27 GMIN=1e-20 reltol=1e-10 abstol=1e-10
 
 
 
@@ -22,21 +22,23 @@ V1 VDD 0 dc 1.5
 I1 VDD VDN0 dc 1u
 VM VDN0 VDN dc 0
 
-VO1 IDN1 0 dc 0.5 ac 1
-VO2 IDN2 0 dc 0.5 ac 1
-VO3 IDN3 0 dc 0.5 ac 1
+VO1 IDN1 0 dc 0.48 ac 1
+VO2 IDN2 0 dc 0.48 ac 1
+VO3 IDN3 0 dc 0.48 ac 1
 
 *----------------------------------------------------------------
 * DUT
 *----------------------------------------------------------------
-X1 VDN IDN1 IDN2 IDN3 CMIRR
-
-
+.include cm.cir
+X1 VDN IDN1 IDN2 IDN3 VSS CMIRR
 
 *----------------------------------------------------------------
 * Analysis
 *----------------------------------------------------------------
+.ac dec 50 1 10k
 
+.defwave ro1 = 1/i(vo1)
+.defwave ro2 = 1/i(vo2)
+.defwave ro3 = 1/i(vo3)
 
-
-.op
+.plot ac v(ro1) v(ro2) v(ro3) im(vo1) im(vo2) im(vo3) v(er1) v(er2) v(er3)

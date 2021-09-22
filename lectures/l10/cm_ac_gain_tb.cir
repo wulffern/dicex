@@ -1,4 +1,4 @@
-* Check OP
+* Check DC
 
 *----------------------------------------------------------------
 * Include
@@ -8,7 +8,9 @@
 *----------------------------------------------------------------
 * Options
 *----------------------------------------------------------------
-.option TNOM=27 GMIN=1e-20 reltol=1e-8 abstol=1e-10
+.option TNOM=27 GMIN=1e-20 reltol=1e-10 abstol=1e-10
+
+
 
 *----------------------------------------------------------------
 * Sources
@@ -17,8 +19,9 @@
 V2 VSS 0 dc 0
 V1 VDD 0 dc 1.5
 
-I1 VDD VDN0 dc 1u
+I1 VDD VDN0 dc 1u ac 1
 VM VDN0 VDN dc 0
+
 
 E1 IDN1 0 VDN 0 1
 E2 IDN2 0 VDN 0 1
@@ -33,17 +36,6 @@ X1 VDN IDN1 IDN2 IDN3 VSS CMIRR
 *----------------------------------------------------------------
 * Analysis
 *----------------------------------------------------------------
+.ac dec 50 1 1G
 
-B1 BD1 0 V=i(e1)/(-i(VM))
-B2 BD2 0 V=i(e2)/(-i(VM))
-B3 BD3 0 V=i(e3)/(-i(VM))
-
-BE1 ERR1 0 V=(i(e1) + 2*i(VM))/(i(e1))
-BE2 ERR2 0 V=(i(e2) + 4*i(VM))/(i(e2))
-BE3 ERR3 0 V=(i(e3) + 8*i(VM))/(i(e3))
-
-BIE1 IERR1 0 V=(i(e1) + 2*i(VM))
-BIE2 IERR2 0 V=(i(e2) + 4*i(VM))
-BIE3 IERR3 0 V=(i(e3) + 8*i(VM))
-
-.op
+.plot ac  im(e1) im(e2) im(e3)

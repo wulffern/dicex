@@ -17,33 +17,25 @@
 V2 VSS 0 dc 0
 V1 VDD 0 dc 1.5
 
-I1 VDD VDN0 dc 1u
-VM VDN0 VDN dc 0
+I1 VDD IBP dc 1u
 
-E1 IDN1 0 VDN 0 1
-E2 IDN2 0 VDN 0 1
-E3 IDN3 0 VDN 0 1
+
+VG VIP 0 dc 0.7 ac 1
+
+CL VO VSS 1p
 
 *----------------------------------------------------------------
 * DUT
 *----------------------------------------------------------------
 .include cm.cir
-X1 VDN IDN1 IDN2 IDN3 VSS CMIRR
+.include ota.cir
+
+X1 VIP VO VO VDD VSS IBP OTA
 
 *----------------------------------------------------------------
 * Analysis
 *----------------------------------------------------------------
+*.op
+.ac dec 50 1 10G
 
-B1 BD1 0 V=i(e1)/(-i(VM))
-B2 BD2 0 V=i(e2)/(-i(VM))
-B3 BD3 0 V=i(e3)/(-i(VM))
-
-BE1 ERR1 0 V=(i(e1) + 2*i(VM))/(i(e1))
-BE2 ERR2 0 V=(i(e2) + 4*i(VM))/(i(e2))
-BE3 ERR3 0 V=(i(e3) + 8*i(VM))/(i(e3))
-
-BIE1 IERR1 0 V=(i(e1) + 2*i(VM))
-BIE2 IERR2 0 V=(i(e2) + 4*i(VM))
-BIE3 IERR3 0 V=(i(e3) + 8*i(VM))
-
-.op
+.plot vdb(vo) vp(vo)
