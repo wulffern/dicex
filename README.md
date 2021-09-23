@@ -49,7 +49,7 @@ cd dicex
 
 On windows
 
-Multiple people have experienced problems running on windows. I would recommend starting ciceda from windows subsystem for linux.
+*Multiple people have experienced problems running on windows. I would recommend starting ciceda from windows subsystem for linux instead*
 
 ```
 git clone https://github.com/wulffern/dicex --config core.autocrlf=input
