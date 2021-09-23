@@ -48,10 +48,23 @@ cd dicex
 ```
 
 On windows
+
+Multiple people have experienced problems running on windows. I would recommend starting ciceda from windows subsystem for linux.
+
 ```
 git clone https://github.com/wulffern/dicex --config core.autocrlf=input
 cd dicex
 ```
+
+On windows with windows subsystem for linux 2 (WSL2)
+
+Download Ubuntu 20 LTS from app store. Start a Ubuntu shell
+
+```
+git clone https://github.com/wulffern/dicex
+cd dicex
+```
+
   
 On mac
 
@@ -63,6 +76,12 @@ On windows
 
 ``` sh
 ciceda_windows.bat
+```
+
+On windows with WSL2
+
+``` sh
+./ciceda_linux.sh
 ```
 
 
