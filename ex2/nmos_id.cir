@@ -1,42 +1,41 @@
-* Check op
+* Gate Voltage sweep
 
 *----------------------------------------------------------------
 * Include
 *----------------------------------------------------------------
-.include ../../models/ptm_130.spi
+.include ../models/ptm_130.spi
 
 *----------------------------------------------------------------
 * Options
 *----------------------------------------------------------------
-.option TNOM=27 GMIN=1e-20 reltol=1e-6 abstol=1e-8
-
-.param sq={10}
-.param l={0.15u}
-.param w={sq*l}
-
-.param In={80u}
-.param Ip={In/6}
+.option TNOM=27 GMIN=1e-20
 
 *----------------------------------------------------------------
 * Sources
 *----------------------------------------------------------------
+V1 VD VSS dc 1.5
+V2 VG VSS dc 0
+V3 VSS 0 dc 0
 
-V2 VSS 0 dc 0
-V1 VDD 0 dc 1.5
+.param k_weak=0.04m
+.param k_strong=3.9m
+.param k_sat=1.5m
+.param n = 1.5
+.param V_T = 25.6m
+
 
 *----------------------------------------------------------------
 * DUT
 *----------------------------------------------------------------
-
-*NMOS
-I1 0 VDN dc In
-MN1 VDN VDN VSS VSS nmos W=w L=l
-
-*PMOS
-I2 VDP 0 dc Ip
-MP2 VDP VDP VDD VDD pmos W=w L=l
+M1 VD VG VSS VSS nmos W=2u L=0.2u
 
 *----------------------------------------------------------------
 * Analysis
 *----------------------------------------------------------------
-.op
+.dc V2 0 1.5 0.01
+.defwave a = gm(m1)*rds(m1)
+.defwave id_weak = k_weak*exp(vgt(m1)/(n*V_T))
+.defwave id_strong = k_strong*vgsteff(m1)*vgsteff(m1) + k_weak
+.defwave id_sat = k_sat*vgt(m1)
+
+.plot v(vg) gm(m1) rds(m1) id(m1) v(a) q(id_weak) v(id_strong) v(id_sat)

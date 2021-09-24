@@ -1,5 +1,5 @@
 
-.SUBCKT NCHCM D G S B M=1 w=0.5u l=0.5u
+.SUBCKT NCHCM D G S B w=0.5u l=0.5u
 M1 D G N1 B nmos W=w L=l
 M2 N1  G N2 B nmos W=w L=l
 M3 N2  G N3 B nmos W=w L=l

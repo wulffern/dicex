@@ -10,7 +10,7 @@ import tikzplotlib
 
 def plot(xname,yname,ptype=None):
 
-    if(ptype != "same"):
+    if("same" not in ptype):
         f = plt.figure()
 
     df = pd.read_csv(fname,header=4 )
@@ -19,11 +19,14 @@ def plot(xname,yname,ptype=None):
 
     #print(y)
     #- Plot
-    if(ptype == "logy"):
+
+    if("logy" in ptype):
         plt.semilogy(x,y,label=yname)
-    elif(ptype == "logx"):
+    elif("ln2" in ptype):
+        plt.plot(x,np.log(y)/np.log(2),label=yname)
+    elif("logx" in ptype):
         plt.semilogx(x,y,label=yname)
-    elif(ptype == "db20"):
+    elif("db20" in ptype):
         plt.semilogx(x,20*np.log10(y),label="dB20(" + yname + ")")
     else:
         plt.plot(x,y,label=yname)
@@ -45,6 +48,8 @@ if(len(sys.argv) > 4):
 fname = sys.argv[1]
 xname = sys.argv[2]
 yname = sys.argv[3]
+
+
 
 if("," in yname):
     names = yname.split(",")
