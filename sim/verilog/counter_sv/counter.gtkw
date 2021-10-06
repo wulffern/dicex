@@ -1,0 +1,29 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Wed Oct  6 21:05:49 2021
+[*]
+[dumpfile] "/Users/wulff/Documents/pro/dicex/sim/verilog/counter_sv/counter.vcd"
+[dumpfile_mtime] "Wed Oct  6 21:03:18 2021"
+[dumpfile_size] 15020
+[savefile] "/Users/wulff/Documents/pro/dicex/sim/verilog/counter_sv/counter.gtkw"
+[timestart] 1483000
+[size] 1000 600
+[pos] -1 -1
+*-18.431606 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test.
+[sst_width] 193
+[signals_width] 116
+[sst_expanded] 1
+[sst_vpaned_height] 167
+@28
+test.clk
+@8022
+test.count[7:0]
+@20000
+-
+-
+-
+@25
+test.count[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

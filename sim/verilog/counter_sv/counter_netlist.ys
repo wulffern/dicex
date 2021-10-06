@@ -1,0 +1,10 @@
+# read design
+read_verilog counter_netlist.v
+read_liberty -lib ../../../lib/demo.lib
+
+# the high-level stuff
+proc;
+
+show -format dot -prefix counter -colors 1 -width -stretch
+
+clean

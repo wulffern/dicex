@@ -9,3 +9,7 @@ run_netlist:
 
 synth:
 	yosys counter.ys
+
+spng:
+	yosys counter_netlist.ys
+	dot counter.dot -Tpng > counter.png

@@ -1,6 +1,6 @@
 # read design
 read_verilog -sv counter.v
-read_verilog ../../../lib/demo.v
+read_liberty -lib ../../../lib/demo.lib
 hierarchy -top counter
 
 # the high-level stuff
@@ -11,6 +11,8 @@ techmap; opt
 
 synth
 
+opt_clean
+
 # mapping flip-flops to mycells.lib
 dfflibmap -liberty ../../../lib/demo.lib
 
@@ -20,5 +22,7 @@ abc -liberty ../../../lib/demo.lib
 write_verilog counter_netlist.v
 write_spice counter_netlist.sp
 
+#show -format dot -prefix counter
+show -format dot -prefix counter -colors 1 -width -stretch
 # cleanup
 clean
