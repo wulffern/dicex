@@ -13,3 +13,18 @@ synth:
 spng:
 	yosys counter_netlist.ys
 	dot counter.dot -Tpng > counter.png
+
+sp:
+	echo "\n\n.SUBCKT counter out_7 out_6 out_5 out_4 out_3 out_2 out_1 out_0 clk reset AVDD AVSS" > counter_netlist_pg.spi
+	cat counter_netlist.sp |perl -pe 's/ (\w+_CV)/ AVDD AVSS $$1/ig;s/(\w)\./$$1_/ig' >> counter_netlist_pg.spi
+	echo ".ENDS" >> counter_netlist_pg.spi
+
+
+spsim:
+	ngspice -a counter_tb.cir
+
+spattack:
+	-ngspice -a -b counter_attack_tb.cir
+	ps2pdf counter_ref_do.ps
+	ps2pdf counter_ref_dor.ps
+	ps2pdf counter_ref_wave.ps

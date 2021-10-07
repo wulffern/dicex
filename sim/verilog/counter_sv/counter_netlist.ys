@@ -1,6 +1,6 @@
 # read design
 read_verilog counter_netlist.v
-read_liberty -lib ../../../lib/demo.lib
+read_liberty -lib ../../../lib/SUN_TR_GF130N.lib
 
 # the high-level stuff
 proc;

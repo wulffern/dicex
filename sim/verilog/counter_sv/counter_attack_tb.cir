@@ -1,0 +1,125 @@
+* Gate Voltage sweep
+
+*----------------------------------------------------------------
+* Include
+*----------------------------------------------------------------
+.include ../../../models/ptm_130_ngspice.spi
+.include ../../../lib/SUN_TR_GF130N.spi
+.include counter_netlist_pg.spi
+
+*----------------------------------------------------------------
+* Options
+*----------------------------------------------------------------
+.option TNOM=27 GMIN=1e-20 reltol=1e-6 abstol=1e-6
+
+.param t_setup = 0
+.param t_hold  = 0
+.param CLOCK_PERIOD = 500p
+.param RISE_FALL = 5p
+
+
+.param trf = {RISE_FALL}
+.param tcper = {CLOCK_PERIOD}
+.param tcpw = {CLOCK_PERIOD/2}
+.param taper = {CLOCK_PERIOD*10}
+.param tapw = {CLOCK_PERIOD*0.6}
+.param tcd = {1n/2}
+.param tacd = {1n/2-tcpw/3}
+.param tend = {tcper*10 +tcd}
+.param t0 = {tcd - t_setup}
+.param t1 = {t_hold + tcd + tcper}
+
+*----------------------------------------------------------------
+* Sources
+*----------------------------------------------------------------
+VDDA AVDD_ATTACK 0 dc 0.5 pulse(1.5 0.6 tcd trf trf tapw taper)
+VDD AVDD 0 dc 1.5
+VSS AVSS 0 dc 0
+
+
+VRN R  0 dc 0
+VCK CK 0 dc 0 pulse (0 1.5 tcd trf trf tcpw tcper)
+
+
+*----------------------------------------------------------------
+* DUT
+*----------------------------------------------------------------
+XDUT DATAI_7 DATAI_6 DATAI_5 DATAI_4 DATAI_3 DATAI_2 DATAI_1 DATAI_0 CK R AVDD_ATTACK AVSS counter
+
+XDUT1 DATAR_7 DATAR_6 DATAR_5 DATAR_4 DATAR_3 DATAR_2 DATAR_1 DATAR_0 CK R AVDD AVSS counter
+
+XB1 DATAI_0 DATA_0 AVDD AVSS BFX1_CV
+XB2 DATAI_1 DATA_1 AVDD AVSS BFX1_CV
+XB3 DATAI_2 DATA_2 AVDD AVSS BFX1_CV
+XB4 DATAI_3 DATA_3 AVDD AVSS BFX1_CV
+XB5 DATAI_4 DATA_4 AVDD AVSS BFX1_CV
+XB6 DATAI_5 DATA_5 AVDD AVSS BFX1_CV
+XB7 DATAI_6 DATA_6 AVDD AVSS BFX1_CV
+XB8 DATAI_7 DATA_7 AVDD AVSS BFX1_CV
+
+XBR1 DATAR_0 DATARB_0 AVDD AVSS BFX1_CV
+XBR2 DATAR_1 DATARB_1 AVDD AVSS BFX1_CV
+XBR3 DATAR_2 DATARB_2 AVDD AVSS BFX1_CV
+XBR4 DATAR_3 DATARB_3 AVDD AVSS BFX1_CV
+XBR5 DATAR_4 DATARB_4 AVDD AVSS BFX1_CV
+XBR6 DATAR_5 DATARB_5 AVDD AVSS BFX1_CV
+XBR7 DATAR_6 DATARB_6 AVDD AVSS BFX1_CV
+XBR8 DATAR_7 DATARB_7 AVDD AVSS BFX1_CV
+
+
+XDAC0 DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 DO AVDD DAC_8BIT
+
+XDAC1 DATARB_7 DATARB_6 DATARB_5 DATARB_4 DATARB_3 DATARB_2 DATARB_1 DATARB_0 DOR AVDD DAC_8BIT
+
+
+C0 DATA_0 0 5f
+C1 DATA_1 0 5f
+C2 DATA_2 0 5f
+C3 DATA_3 0 5f
+C4 DATA_4 0 5f
+C5 DATA_5 0 5f
+C6 DATA_6 0 5f
+C7 DATA_7 0 5f
+
+*----------------------------------------------------------------
+* Analysis
+*----------------------------------------------------------------
+
+.SUBCKT DAC_8BIT DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 DO VDD
+B1 DO_VDD 0 V = 128*V(DATA_7) + 64*V(DATA_6) + 32*V(DATA_5) + 16*V(DATA_4)+ 8*V(DATA_3) + 4*V(DATA_2) + 2*V(DATA_1) + 1*V(DATA_0)
+B2 DO 0 V = V(DO_VDD)/V(VDD)
+.ENDS
+
+
+.control
+set hcopydevtype=postscript
+set color0=white
+set color1=black
+unset askquit
+tran 100p 128n
+set hcopypscolor=1
+*color0 is background color
+*color1 is the grid and text color
+*colors 2-15 are for the vectors
+set color0=rgb:0/0/0
+set color1=rgb:f/f/f
+set color2=rgb:0/0/f
+set color3=rgb:f/0/0
+set color4=rgb:0/f/0
+set color5=rgb:c/c/c
+*plot V(ERASE) V(EXPOSE) V(CONVERT) V(READ)
+
+hardcopy counter_ref_do.ps dor
+hardcopy counter_ref_dor.ps dor do
+hardcopy counter_ref_wave.ps xdut.count_0 AVDD_ATTACK
+
+
+plot V(DO) V(DOR)
+*plot v(ck) v(xdut.count_0) V(AVDD_ATTACK)
+*plot v(data_7) v(data_6) v(data_5) v(data_4) v(data_5) v(data_4) v(data_3) v(data_2) v(data_1) v(data_0)
+
+
+
+
+.endc
+.end

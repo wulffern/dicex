@@ -1,6 +1,6 @@
 # read design
 read_verilog -sv counter.v
-read_liberty -lib ../../../lib/demo.lib
+
 hierarchy -top counter
 
 # the high-level stuff
@@ -13,14 +13,18 @@ synth
 
 opt_clean
 
+
 # mapping flip-flops to mycells.lib
-dfflibmap -liberty ../../../lib/demo.lib
+dfflibmap  -liberty ../../../lib/SUN_TR_GF130N.lib
 
 # mapping logic to mycells.lib
-abc -liberty ../../../lib/demo.lib
+abc -liberty ../../../lib/SUN_TR_GF130N.lib
+
+
 
 write_verilog counter_netlist.v
-write_spice counter_netlist.sp
+read_verilog  ../../../lib/SUN_TR_GF130N.v
+write_spice -big_endian -neg AVSS -pos AVDD -top counter counter_netlist.sp
 
 #show -format dot -prefix counter
 show -format dot -prefix counter -colors 1 -width -stretch
