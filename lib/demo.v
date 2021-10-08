@@ -1,3 +1,5 @@
+`timescale 1 ns / 1 ps
+
 module BUF(A, Y);
 input A;
 output Y;
@@ -7,7 +9,7 @@ endmodule
 module NOT(A, Y);
 input A;
 output Y;
-assign Y = ~A;
+assign #20 Y = ~A;
 endmodule
 
 module NAND(A, B, Y);

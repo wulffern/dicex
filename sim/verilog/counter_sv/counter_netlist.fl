@@ -1,0 +1,3 @@
+../../../lib/demo.v
+counter_netlist.v
+counter_tb.v

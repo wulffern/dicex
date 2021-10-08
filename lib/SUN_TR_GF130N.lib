@@ -1,0 +1,93 @@
+// test comment
+/* test comment */
+library(SUN_TR_GF130N) {
+
+
+ cell(BFX1_CV) {
+    area: 3;
+    pin(A) { direction: input; }
+    pin(Y) { direction: output;
+              function: "A"; }
+    pg_pin(AVDD) {
+         voltage_name : AVDD;
+         pg_type : primary_power;
+      }
+      pg_pin(AVSS) {
+         voltage_name : AVSS;
+         pg_type : primary_ground;
+      }
+
+  }
+  cell(IVX1_CV) {
+    area: 3;
+    pin(A) { direction: input; }
+    pin(Y) { direction: output;
+              function: "A'"; }
+    pg_pin(AVDD) {
+         voltage_name : AVDD;
+         pg_type : primary_power;
+      }
+      pg_pin(AVSS) {
+         voltage_name : AVSS;
+         pg_type : primary_ground;
+      }
+
+  }
+  cell(NDX1_CV) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "(A*B)'"; }
+    pg_pin(AVDD) {
+         voltage_name : AVDD;
+         pg_type : primary_power;
+      }
+      pg_pin(AVSS) {
+         voltage_name : AVSS;
+         pg_type : primary_ground;
+      }
+
+  }
+   cell(NRX1_CV) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "(A+B)'"; }
+    pg_pin(AVDD) {
+         voltage_name : AVDD;
+         pg_type : primary_power;
+      }
+      pg_pin(AVSS) {
+         voltage_name : AVSS;
+         pg_type : primary_ground;
+      }
+
+  }
+  cell(DFSRQNX1_CV) {
+    area: 18;
+    ff("IQ", "IQN") { clocked_on: CK;
+                  next_state: D;
+                  preset: S;
+                       clear: R; }
+    pin(D) { direction: input; }
+    pin(CK) { direction: input;
+                 clock: true; }
+    pin(S) { direction: input; }
+    pin(R) { direction: input; }
+    pin(Q) { direction: output;
+              function: "IQ"; }
+    pin(QN) { direction: output;
+              function: "IQN"; }
+    pg_pin(AVDD) {
+         voltage_name : AVDD;
+         pg_type : primary_power;
+      }
+      pg_pin(AVSS) {
+         voltage_name : AVSS;
+         pg_type : primary_ground;
+      }
+    ; // empty statement
+  }
+}
