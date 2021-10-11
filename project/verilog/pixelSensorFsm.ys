@@ -1,0 +1,29 @@
+# read design
+read_verilog -sv pixelSensorFsm.v
+
+hierarchy -top pixelSensorFsm
+
+# the high-level stuff
+proc; fsm; opt; memory; opt
+
+# mapping to internal cell library
+techmap; opt
+
+synth
+
+opt_clean
+
+
+# mapping flip-flops to mycells.lib
+dfflibmap  -liberty ../../lib/SUN_TR_GF130N.lib
+
+# mapping logic to mycells.lib
+abc -liberty ../../lib/SUN_TR_GF130N.lib
+
+
+write_verilog pixelSensorFsm_netlist.v
+
+read_verilog  ../../lib/SUN_TR_GF130N.v
+show -format dot -prefix pixelSensorFsm -colors 1 -width -stretch
+
+clean
