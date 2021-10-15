@@ -1,0 +1,20 @@
+* Comparator
+
+.include ../../models/ptm_130_aimspice.spi
+
+V1 VDD 0 dc 1.5
+V2 VSS 0 dc 0
+V3 VSTORE 0 dc 0.6
+V4 VRAMP VSTORE dc 0
+
+
+mp1 VP VP VDD VDD pmos w=0.5u l=0.5u
+mp2 VO VP VDD VDD pmos w=0.5u l=0.5u
+
+mn1 VO VSTORE VS VS nmos w=0.5u l=0.15u
+mn2 VP VRAMP VS VS nmos w=0.5u l=0.15u
+
+I3 VS 0 dc 1u
+
+.dc V4 -100m 100m 1m
+.plot v(vstore) v(vramp) v(vp) v(vo) v(vs)
