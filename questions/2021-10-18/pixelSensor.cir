@@ -1,0 +1,107 @@
+* Pixel sensor
+**********************************************************************
+**        Copyright (c) 2021 Carsten Wulff Software, Norway
+** *******************************************************************
+** Created       : wulff at 2021-7-22
+** *******************************************************************
+**  The MIT License (MIT)
+**
+**  Permission is hereby granted, free of charge, to any person obtaining a copy
+**  of this software and associated documentation files (the "Software"), to deal
+**  in the Software without restriction, including without limitation the rights
+**  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+**  copies of the Software, and to permit persons to whom the Software is
+**  furnished to do so, subject to the following conditions:
+**
+**  The above copyright notice and this permission notice shall be included in all
+**  copies or substantial portions of the Software.
+**
+**  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+**  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+**  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+**  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+**  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+**  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+**  SOFTWARE.
+**
+**********************************************************************
+
+.SUBCKT PIXEL_SENSOR VBN1 VRAMP VRESET ERASE EXPOSE READ
++ DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 VDD VSS
+
+
+XS1 VRESET VSTORE ERASE EXPOSE VDD VSS SENSOR
+
+XC1 VCMP_OUT VSTORE VRAMP VDD VSS COMP
+
+XM1 READ VCMP_OUT DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 VDD VSS MEMORY
+
+.ENDS
+
+.SUBCKT MEMORY READ VCMP_OUT
++ DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 VDD VSS
+
+XM1 VCMP_OUT DATA_0 READ VSS MEMCELL
+XM2 VCMP_OUT DATA_1 READ VSS MEMCELL
+XM3 VCMP_OUT DATA_2 READ VSS MEMCELL
+XM4 VCMP_OUT DATA_3 READ VSS MEMCELL
+XM5 VCMP_OUT DATA_4 READ VSS MEMCELL
+XM6 VCMP_OUT DATA_5 READ VSS MEMCELL
+XM7 VCMP_OUT DATA_6 READ VSS MEMCELL
+XM8 VCMP_OUT DATA_7 READ VSS MEMCELL
+
+.ENDS
+
+.SUBCKT MEMCELL CMP DATA READ VSS
+M1 VG CMP DATA VSS nmos  w=0.2u  l=0.13u
+M2 DATA READ DMEM VSS nmos  w=0.4u  l=0.13u
+M3 DMEM VG VSS VSS nmos  w=1u  l=0.13u
+C1 VG VSS 1p
+.ENDS
+
+* ----------------SENSOR-------------
+.SUBCKT SENSOR VRESET VSTORE ERASE EXPOSE VDD VSS
+
+* Capacitor to model gate-source capacitance
+C1 VSTORE VSS 100f
+Rleak VSTORE VSS 100T
+
+* Switch to reset voltage on capacitor
+BR1 VRESET VSTORE I=V(ERASE)*V(VRESET,VSTORE)/1k
+
+* Switch to expose pixel
+BR2 VPG VSTORE I=V(EXPOSE)*V(VSTORE,VPG)/1k
+
+* Model photocurrent
+Rphoto VPG VSS 1G
+.ENDS
+
+.SUBCKT COMP VCMP_OUT VSTORE VRAMP VDD VSS
+
+* Model comparator
+*BC1 VCMP_OUT VSS V = ((atan(100000*(V(VSTORE) - V(VRAMP)))) + 1.58)/3.14*1.5
+
+
+* Comparator
+
+*.include ../../models/ptm_130_aimspice.spi
+
+
+mp1 VP VP VDD VDD pmos w=0.5u l=0.5u
+mp2 VO VP VDD VDD pmos w=0.5u l=0.5u
+
+mn1 VO VSTORE VS VS nmos w=0.5u l=0.15u
+mn2 VP VRAMP VS VS nmos w=0.5u l=0.15u
+
+I3 VS 0 dc 10u
+
+mp3 VO2 VO VDD VDD pmos w=0.5u l=0.5u
+mn3 VO2 VO VSS VSS nmos w=0.5u l=0.15u
+
+*INVERTER
+mp4 VCMP_OUT VO2 VDD VDD pmos w=0.5u l=0.5u
+mn4 VCMP_OUT VO2 VSS VSS nmos w=0.5u l=0.15u
+
+
+
+.ENDS
