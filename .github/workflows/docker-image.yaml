@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@main
       - name: eda
-        uses: actions/checkout@master
+        uses: actions/checkout@main
         with:
-          - repository: wulffern/eda
-          - path: eda
+          repository: wulffern/eda
+          path: eda
       - name: Run programs
         run: source eda/bashrc && make test
