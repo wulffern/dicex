@@ -10,7 +10,7 @@ jobs:
 
   build:
 
-    runs-on: wulffern/ciceda
+    runs-on: wulffern/ciceda:ubuntu_latest
 
     steps:
     - uses: actions/checkout@v2
