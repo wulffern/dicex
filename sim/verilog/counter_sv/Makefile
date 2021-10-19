@@ -31,4 +31,4 @@ spattack:
 	ps2pdf counter_ref_dor.ps
 	ps2pdf counter_ref_wave.ps
 
-test: run synth run_netlist spng sp
+test: run synth run_netlist synth_netlist sp
