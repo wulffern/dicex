@@ -20,6 +20,5 @@ jobs:
           repository: wulffern/eda
           path: eda
       - run: pip3 install --user -r requirements.txt
-      - run: echo "${HOME}/eda/bin" >> $GITHUB_PATH
       - name: Run programs
-        run: source eda/bashrc && make test
+        run:   echo "eda/bin" >> $GITHUB_PATH && make test
