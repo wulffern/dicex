@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: dicex CI
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-groovy
+    runs-on: ubuntu-20.04
 
     steps:
     - uses: actions/checkout@v2
