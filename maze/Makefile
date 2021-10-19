@@ -30,3 +30,5 @@ clean:
 	-rm *.txt
 	-rm result.yaml
 	-rm maze
+
+test: maze solve

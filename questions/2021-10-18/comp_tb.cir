@@ -70,7 +70,7 @@ I3 0 VBN1 dc 8u
 mnb1 VBN1 VBN1 VSS VSS nmos w=0.5u l=0.5u
 
 VSTORE VSTORE 0 dc 1
-XDUT VCMP_OUT VSTORE VRAMP VBN1 VDD VSS COMP
+XDUT VCMP_OUT VSTORE VRAMP VDD VSS COMP
 
 *----------------------------------------------------------------
 * RAMP

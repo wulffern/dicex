@@ -8,6 +8,11 @@ psfsm:
 	vvp -n pixelSensorFsm
 
 
-ysfsm:
-	yosys pixelSensorFsm.ys
+ysfsm: synth
 	dot pixelSensorFsm.dot -Tpng > pixelSensorFsm.png
+
+synth:
+	yosys pixelSensorFsm.ys
+
+
+test: ps psfsm synth

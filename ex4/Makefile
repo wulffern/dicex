@@ -10,7 +10,7 @@ rosc:
 
 
 plta:
-	${plt} rosc.csv Time "v(a1),v(a2),v(pwrup)" same
+	${plt} rosc.csv Time "v(a1),v(a2),v(pwrup)" "same${OPT}"
 
 
 freq:
@@ -31,3 +31,5 @@ clean:
 	-rm *.csv
 	-rm *.log
 	-rm *.sim
+
+test: mos rosc plta freq

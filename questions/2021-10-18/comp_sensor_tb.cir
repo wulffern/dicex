@@ -65,17 +65,16 @@ VMIN VMIN 0 DC VADC_MIN
 *----------------------------------------------------------------
 .include pixelSensor.cir
 
+
 I3 0 VBN1 dc 8u
 
 mnb1 VBN1 VBN1 VSS VSS nmos w=0.5u l=0.5u
 
 XS1 VRESET VSTORE ERASE EXPOSE VDD VSS SENSOR
 
-E1 VSTORE 0 VSTORE1 0 1
+XDUT VCMP_OUT VRAMP VSTORE VDD VSS COMP
 
-*VST VSTORE1 0 dc 1
 
-XDUT VCMP_OUT VSTORE1 VRAMP VBN1 VDD VSS COMP
 
 *----------------------------------------------------------------
 * RAMP
@@ -102,7 +101,9 @@ set color0=white
 set color1=black
 unset askquit
 tran 1n 60u
-plot V(VRAMP) V(CONVERT) V(ERASE) V(VCMP_OUT)
+plot V(VRAMP) V(VSTORE) V(VCMP_OUT)
+
+plot v(vstore) v(xdut.vs) v(xdut.vp) v(xdut.vo) v(xdut.vo2)
 
 .endc
 .end

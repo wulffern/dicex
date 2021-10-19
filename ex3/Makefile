@@ -9,7 +9,7 @@ a2vg:
 	cat a2.csv|grep ",1.5"
 
 a2dvx:
-	${plt} a2.csv v2 "v(vx)"
+	${plt} a2.csv v2 "v(vx)" ${OPT}
 
 a2vx:
 	${plt} a2.csv Frequency "vm(vx)" db20
@@ -24,7 +24,7 @@ a1:
 	${MAKE} aim TB=a1
 
 a1vx:
-	${plt} a1.csv Frequency "vm(vx)" db20
+	${plt} a1.csv Frequency "vm(vx)" "db20${OPT}"
 
 
 cm:
@@ -34,13 +34,13 @@ pltro:
 	${plt} cm.csv Frequency "vm(ro1),vm(ro2),vm(ro3)" same
 
 pltvg:
-	${plt} cm.csv v2 "v(vg1),v(vg2),v(vg3),v(vg4)" same
+	${plt} cm.csv v2 "v(vg1),v(vg2),v(vg3),v(vg4)" "same${OPT}"
 
 pltvs:
-	${plt} cm.csv v2 "v(vs1),v(vs2),v(vs3),v(vs4)" same
+	${plt} cm.csv v2 "v(vs1),v(vs2),v(vs3),v(vs4)" "same${OPT}"
 
 pltid:
-	${plt} cm.csv v2 "i(vd1),i(vd2),i(vd3)" same
+	${plt} cm.csv v2 "i(vd1),i(vd2),i(vd3)" "same${OPT}"
 
 
 aim:
@@ -53,3 +53,5 @@ clean:
 	-rm *.csv
 	-rm *.log
 	-rm *.sim
+
+test: a1 a2  a1vx cm pltvg pltvs pltid

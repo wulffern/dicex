@@ -1,0 +1,54 @@
+* Gate Voltage sweep
+
+*----------------------------------------------------------------
+* Include
+*----------------------------------------------------------------
+.include ../../models/ptm_130.spi
+.include ../../lib/SUN_TR_GF130N.spi
+
+*----------------------------------------------------------------
+* Options
+*----------------------------------------------------------------
+.option TNOM=27 GMIN=1e-20
+
+.param t_setup = 0
+.param t_hold  = 0
+.param CLOCK_PERIOD = 1n
+.param RISE_FALL = 1p
+
+
+
+
+
+.param trf = {RISE_FALL}
+.param tcper = {CLOCK_PERIOD}
+.param tcpw = {CLOCK_PERIOD/2}
+.param tcd = {1n/2}
+.param tend = {tcper*2 +tcd}
+.param t0 = {tcd - t_setup}
+.param t1 = {t_hold + tcd + tcper}
+
+*----------------------------------------------------------------
+* Sources
+*----------------------------------------------------------------
+VDD VDD VSS dc 1.5
+VSS VSS 0 dc 0
+
+
+VRN VDD RN 0
+VD D 0 pwl 0 0 {t0} 0 {t0+trf} 1.5 {t1} 1.5 {t1+trf} 0
+VCK CK 0 pulse 0 1.5 tcd trf trf tcpw tcper
+
+
+*----------------------------------------------------------------
+* DUT
+*----------------------------------------------------------------
+X1 D CK RN Q QN VDD VSS DFRNQNX1_CV
+
+*----------------------------------------------------------------
+* Analysis
+*----------------------------------------------------------------
+
+
+.tran 10p {tend}
+.plot v(D) v(CK) v(Q) v(QN)

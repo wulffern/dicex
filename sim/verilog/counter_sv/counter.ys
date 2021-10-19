@@ -23,7 +23,7 @@ abc -liberty ../../../lib/SUN_TR_GF130N.lib
 
 
 write_verilog counter_netlist.v
-read_verilog  ../../../lib/SUN_TR_GF130N.v
+read_verilog  ../../../lib/SUN_TR_GF130N_empty.v
 write_spice -big_endian -neg AVSS -pos AVDD -top counter counter_netlist.sp
 
 #show -format dot -prefix counter
