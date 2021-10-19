@@ -1,3 +1,6 @@
+
+[![Docker Image CI](https://github.com/wulffern/dicex/actions/workflows/docker-image.yaml/badge.svg)](https://github.com/wulffern/dicex/actions/workflows/docker-image.yaml)
+
 # dicex (Design of Integrated Circuits Examples)
 
 Getting started with SPICE and verilog can be a daunting task. Companies that
