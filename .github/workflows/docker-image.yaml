@@ -21,4 +21,8 @@ jobs:
           path: eda
       - run: pip3 install --user -r requirements.txt
       - name: Run programs
-        run:   echo "eda/bin" >> $GITHUB_PATH && make test
+        run:  |
+          echo "eda/bin" >> $GITHUB_PATH
+          ls
+          ls ..
+          make test
