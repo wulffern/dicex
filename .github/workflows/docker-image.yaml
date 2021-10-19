@@ -14,12 +14,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: dicex
       - name: eda
         uses: actions/checkout@master
         with:
           repository: wulffern/eda
-          path: dicex/eda
+          path: eda
       - name: Run programs
-        run: source dicex/eda/bashrc && cd dicex/ make test
+        run: source eda/bashrc && make test
