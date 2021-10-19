@@ -23,6 +23,6 @@ jobs:
       - name: Run programs
         run:  |
           echo "eda/bin" >> $GITHUB_PATH
-          ls
-          ls ..
+          export PATH=`pwd`/eda/bin:$PATH
+          echo $HOME
           make test
