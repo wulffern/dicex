@@ -17,7 +17,7 @@ jobs:
       - name: eda
         uses: actions/checkout@master
         with:
-          repository: wulffern/eda
-          path: eda
+          - repository: wulffern/eda
+          - path: eda
       - name: Run programs
         run: source eda/bashrc && make test
