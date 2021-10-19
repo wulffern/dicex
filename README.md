@@ -1,5 +1,5 @@
 
-[![Docker Image CI](https://github.com/wulffern/dicex/actions/workflows/docker-image.yaml/badge.svg)](https://github.com/wulffern/dicex/actions/workflows/docker-image.yaml)
+[![dicex CI](https://github.com/wulffern/dicex/actions/workflows/docker-image.yaml/badge.svg)](https://github.com/wulffern/dicex/actions/workflows/docker-image.yaml)
 
 # dicex (Design of Integrated Circuits Examples)
 
