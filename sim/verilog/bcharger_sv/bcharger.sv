@@ -25,40 +25,42 @@
 //
 //====================================================================
 
-module bcharger( output logic trkl,
-                    output logic fast,
-                    output logic vconst,
-                    output logic done,
-                    input logic  vtrkl,
-                    input logic  vterm,
-                    input logic  iterm,
-                    input logic  vrchrg,
-                    input logic  clk,
-                    input logic  reset
+module bcharger( output logic trkl, output logic fast, output logic vconst, output logic done,
+                    input logic  vtrkl, input logic  vterm, input logic  iterm, input logic  vrchrg,
+                    input logic  clk, input logic  reset
                     );
-
 
    parameter TRLK = 0, FAST = 1, VCONST = 2, DONE=3;
    logic [1:0]                   state;
+   logic [1:0]                   next_state;
 
+   //- Figure out the next state
+   always_comb begin
+      case (state)
+        TRLK: next_state = vtrkl ? FAST : TRLK;
+        FAST: next_state = vterm ? VCONST : FAST;
+        VCONST: next_state = iterm ? DONE : VCONST;
+        DONE: next_state = vrchrg ? TRLK :DONE;
+      endcase // case (state)
+    end
 
+   //- Control output signals
    always_ff @(posedge clk or posedge reset) begin
       if(reset) begin
-        state <= TRLK;
+         state <= TRLK;
          trkl <= 1;
          fast <= 0;
          vconst <= 0;
          done <= 0;
       end
       else begin
+         state <= next_state;
          case (state)
            TRLK: begin
               trkl <= 1;
               fast <= 0;
               vconst <= 0;
               done <= 0;
-              if(vtrkl)
-                state <= FAST;
            end
            FAST: begin
               trkl <= 0;
@@ -66,24 +68,20 @@ module bcharger( output logic trkl,
               vconst <= 0;
               done <= 0;
 
-              if(vterm)
-                state <= VCONST;
            end
            VCONST: begin
               trkl <= 0;
               fast <= 0;
               vconst <= 1;
               done <= 0;
-              if(iterm)
-                state <= DONE;
+
            end
            DONE: begin
               trkl <= 0;
               fast <= 0;
               vconst <= 0;
               done <= 1;
-              if(vrchrg)
-                state <= TRLK;
+
            end
          endcase // case (state)
       end // else: !if(reset)
