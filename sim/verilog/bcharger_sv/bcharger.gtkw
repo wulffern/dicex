@@ -1,0 +1,38 @@
+[*]
+[*] GTKWave Analyzer v3.3.107 (w)1999-2020 BSI
+[*] Sun Oct 24 13:08:04 2021
+[*]
+[dumpfile] "bcharger_tb.vcd"
+[dumpfile_mtime] "Sun Oct 24 13:06:23 2021"
+[dumpfile_size] 3120
+[savefile] "bcharger.gtkw"
+[timestart] 2000
+[size] 1633 600
+[pos] -1 -1
+*-13.457815 55000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 193
+[signals_width] 246
+[sst_expanded] 1
+[sst_vpaned_height] 167
+@200
+-States
+@28
+bcharger_tb.trlk
+bcharger_tb.fast
+bcharger_tb.vconst
+bcharger_tb.done
+@200
+-Inputs
+@28
+bcharger_tb.vtrkl
+bcharger_tb.vterm
+bcharger_tb.iterm
+bcharger_tb.vrchrg
+@200
+-tbstuff
+@29
+bcharger_tb.clk
+@28
+bcharger_tb.reset
+[pattern_trace] 1
+[pattern_trace] 0

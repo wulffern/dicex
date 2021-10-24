@@ -5,6 +5,7 @@ lectures/
 *.txt
 .*
 my_design
+*.vvp
 *_design
 *_netlist*
 *.png
