@@ -1,0 +1,19 @@
+digraph finite_state_machine {
+    rankdir=LR;
+    size="8,5"
+
+    node [shape = doublecircle, label="Trickle charger", fontsize=12] trkl;
+    node [shape = circle, label="Fast charge", fontsize=12] fast;
+    node [shape = circle, label="Const. Voltage", fontsize=12] vconst;
+    node [shape = circle, label="Done", fontsize=12] done;
+
+    trkl -> trkl [label="vtrkl = 0"];
+    trkl -> fast [label="vtrkl = 1"];
+    fast -> fast [label="vterm = 0"];
+    fast -> vconst [label="vterm = 1"];
+    vconst-> vconst [label="iterm = 0"];
+    vconst-> done [label="iterm = 1"];
+    done-> done [label="vrchrg = 0"];
+    done-> trkl [label="vrchrg = 1"];
+
+}

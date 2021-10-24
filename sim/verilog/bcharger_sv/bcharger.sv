@@ -41,6 +41,7 @@ module bcharger( output logic trkl, output logic fast, output logic vconst, outp
         FAST: next_state = vterm ? VCONST : FAST;
         VCONST: next_state = iterm ? DONE : VCONST;
         DONE: next_state = vrchrg ? TRLK :DONE;
+        default: next_state = TRLK;
       endcase // case (state)
     end
 
@@ -81,7 +82,6 @@ module bcharger( output logic trkl, output logic fast, output logic vconst, outp
               fast <= 0;
               vconst <= 0;
               done <= 1;
-
            end
          endcase // case (state)
       end // else: !if(reset)

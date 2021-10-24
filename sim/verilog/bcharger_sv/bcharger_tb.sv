@@ -71,14 +71,21 @@ module bcharger_tb;
         vrchrg = 0;
      end
      else begin
-        if(count == t_trkl)
+        if(count == t_trkl) begin
           vtrkl = 1;
-        if(count > t_vterm)
-          vterm = 1;
-        if (count > t_iterm)
+        end
+        if(count > t_vterm) begin
+           vterm = 1;
+        end
+        if (count > t_iterm) begin
           iterm = 1;
-        if( count > t_recharge)
+        end
+        if( count > t_recharge) begin
           vrchrg = 1;
+           vterm = 0;
+           iterm = 0;
+
+        end
 
      end
 

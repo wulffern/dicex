@@ -4,7 +4,7 @@ read_verilog -sv bcharger.sv
 hierarchy -top bcharger
 
 # the high-level stuff
-proc; fsm; opt; memory; opt
+fsm; opt; memory; opt
 
 # mapping to internal cell library
 techmap; opt
