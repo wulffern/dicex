@@ -13,6 +13,34 @@ module NDX1_CV(A, B, Y);
    assign Y = ~(A & B);
 endmodule
 
+module ANX1_CV(A, B, Y);
+   input A,B;
+   output Y;
+   assign Y = A& B;
+
+endmodule // ANX1_CV
+
+module ORX1_CV(A, B, Y);
+   input A,B;
+   output Y;
+   assign Y = A | B;
+
+endmodule // ORX1_CV
+
+module EOX1_CV(A, B, Y);
+   input A,B;
+   output Y;
+   assign Y = ~A & B | ~B & A;
+
+endmodule // EOX1_CV
+
+module ENX1_CV(A, B, Y);
+   input A,B;
+   output Y;
+   assign Y = ~(~A & B | ~B & A);
+endmodule
+
+
 
 module NRX1_CV(A, B, Y);
    input A,B;
