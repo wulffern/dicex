@@ -49,6 +49,70 @@ library(SUN_TR_GF130N) {
       }
 
   }
+  cell(ANX1_CV) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "A*B"; }
+    pg_pin(AVDD) {
+         voltage_name : AVDD;
+         pg_type : primary_power;
+      }
+      pg_pin(AVSS) {
+         voltage_name : AVSS;
+         pg_type : primary_ground;
+      }
+
+  }
+  cell(ORX1_CV) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "A+B"; }
+    pg_pin(AVDD) {
+         voltage_name : AVDD;
+         pg_type : primary_power;
+      }
+      pg_pin(AVSS) {
+         voltage_name : AVSS;
+         pg_type : primary_ground;
+      }
+
+  }
+  cell(EOX1_CV) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "A'*B + A*B'"; }
+    pg_pin(AVDD) {
+         voltage_name : AVDD;
+         pg_type : primary_power;
+      }
+      pg_pin(AVSS) {
+         voltage_name : AVSS;
+         pg_type : primary_ground;
+      }
+
+  }
+   cell(ENX1_CV) {
+    area: 4;
+    pin(A) { direction: input; }
+    pin(B) { direction: input; }
+    pin(Y) { direction: output;
+             function: "A*B + A'*B'"; }
+    pg_pin(AVDD) {
+         voltage_name : AVDD;
+         pg_type : primary_power;
+      }
+      pg_pin(AVSS) {
+         voltage_name : AVSS;
+         pg_type : primary_ground;
+      }
+
+  }
    cell(NRX1_CV) {
     area: 4;
     pin(A) { direction: input; }
