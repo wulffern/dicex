@@ -63,6 +63,12 @@ C1 VG VSS 1p
 
 * Capacitor to model gate-source capacitance
 C1 VSTORE VSS 100f
+
+* Ngspice struggled with convergence on the VSTORE node, probabily due to a
+* combination of the C1 and the ideal voltage controlled current source BR1.
+* Rleak serves no electrical purpose, but it did make ngspice happy
+* at one point i time. If you replace BR1 and BR2 with transistors, then I expect you
+* don't need Rleak.
 Rleak VSTORE VSS 100T
 
 * Switch to reset voltage on capacitor

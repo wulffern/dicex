@@ -2,10 +2,10 @@
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
 [*] Wed Jul 21 18:27:37 2021
 [*]
-[dumpfile] "/home/others/ahomee/c/carstenw/pro/dicex/project/verilog/pixelSensor_tb.vcd"
+[dumpfile] "pixelSensor_tb.vcd"
 [dumpfile_mtime] "Wed Jul 21 18:21:54 2021"
 [dumpfile_size] 99497
-[savefile] "/home/others/ahomee/c/carstenw/pro/dicex/project/verilog/pixelSensor_tb.gktw.gtkw"
+[savefile] "pixelSensor_tb.gktw"
 [timestart] 2387140
 [size] 1442 852
 [pos] -1 -1

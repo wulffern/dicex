@@ -41,11 +41,27 @@
 * PARAMETERS
 *----------------------------------------------------------------
 
+* Relatively slow rise/fall. 10 ps is probably ok for cells, but for large
+* digital circuits it depends on the clock frequency used in synthesis.
+* For example, for 10 MHz the synthesis could easily use 4 ns for rise/fall.
 .param TRF = 10n
+
+* Randomly picked clock frequency of 10 MHz
 .param TCLK = 100n
+
+* Randomly picked erase time. In real world, it would probably depend
+* on the time constant to evacuate all electrons from the N-well
 .param C_ERASE = 5
+
+* Randomly picked expose time. I would imagine in the real world it's on the
+* order of ms, but it depends on the framerate of the image sensor
 .param C_EXPOSE = 255
+
+* Linked to the ramp time in verilog. Should be the same, or slightly longer
+* as the ADC/DATA ramp
 .param C_CONVERT = 255
+
+* Randomly picked read time, may need to be adjusted to allow for digital readout.
 .param C_READ = 5
 
 *- Pulse Width of control signals
