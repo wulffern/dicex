@@ -21,7 +21,7 @@ easier to make complex systems with the commercial tools, and believe me, ICs ar
 For now though, let's focus on the transistors, resistor,  and the
 building blocks for digital circuits, the digital gates.
 
-# I don't have Ubuntu Linux 20
+# Getting started
 
 - Install docker from [docker.com](http://docker.com)
 - Install git from [git-scm.com](https://git-scm.com/downloadsm)
