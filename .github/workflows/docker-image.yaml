@@ -10,19 +10,15 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-20.04
-
+    runs-on: ubuntu-latest
+    container:
+      image: wulffern/ciceda:ubuntu_0.1.5
+      options: --user root
     steps:
-      - uses: actions/checkout@main
-      - name: eda
+      - name: dicex
         uses: actions/checkout@main
-        with:
-          repository: wulffern/eda
-          path: eda
-      - run: pip3 install --user -r requirements.txt
       - name: Run programs
         run:  |
-          echo "eda/bin" >> $GITHUB_PATH
-          export PATH=`pwd`/eda/bin:$PATH
-          echo $HOME
+          export PATH="/opt/eda/bin:$PATH"
+          python3 -m pip install -r requirements.txt
           make test
