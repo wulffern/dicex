@@ -21,22 +21,11 @@ easier to make complex systems with the commercial tools, and believe me, ICs ar
 For now though, let's focus on the transistors, resistor,  and the
 building blocks for digital circuits, the digital gates.
 
-# I have a Ubuntu Linux 20
-If you're an NTNU student, then you can ssh to login.stud.ntnu.no and run
-
-``` sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/wulffern/dicex/main/ubuntu_install.sh)"
-```
-
-For information on login.stud.ntnu.no see https://innsida.ntnu.no/wiki/-/wiki/English/ssh
-
-
 # I don't have Ubuntu Linux 20
 
 - Install docker from [docker.com](http://docker.com)
 - Install git from [git-scm.com](https://git-scm.com/downloadsm)
-- Install TigerVNC from [tigervnc.org](https://tigervnc.org). This is not
-  necessary on Mac as you can use 
+- Install TigerVNC from [tigervnc.org](https://tigervnc.org)
 
 For a demo, see [dicex and ciceda](https://www.youtube.com/watch?v=SpHw1MB3fus)
 
