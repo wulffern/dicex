@@ -26,7 +26,7 @@ export PATH="/opt/eda/bin:/usr/local/opt/qt/bin:~/.emacs.d/bin:$PATH"
 #vncserver :0 -geometry 1280x960
 
 
-
+#sudo service ssh restart
 
 
 [ -e "$HOME/.dircolors" ] && DIR_COLORS="$HOME/.dircolors"
