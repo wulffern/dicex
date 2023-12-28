@@ -1,5 +1,6 @@
 
 MSIZE=31
+#MSIZE=11
 SEED=29
 OPT=
 .PHONY:maze
